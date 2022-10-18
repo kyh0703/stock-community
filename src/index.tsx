@@ -1,18 +1,25 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
 import App from './App';
 import './index.css';
-import { theme } from './theme';
+import rootReducer from './modules';
+import { BrowserRouter } from 'react-router-dom';
+
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
