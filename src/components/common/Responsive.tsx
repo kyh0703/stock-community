@@ -15,7 +15,10 @@ const ResponsiveBlock = styled.div`
   }
 `;
 
-const Responsive = ({ children, ...rest }) => {
+const Responsive: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  children,
+  ...rest
+}) => {
   return <ResponsiveBlock {...rest}>{children}</ResponsiveBlock>;
 };
 

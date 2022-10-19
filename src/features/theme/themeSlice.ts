@@ -11,7 +11,7 @@ const initialState: ThemeState = {
   systemTheme: 'not-ready',
 };
 
-const theme = createSlice({
+const themeSlice = createSlice({
   name: 'theme',
   initialState: initialState,
   reducers: {
@@ -27,4 +27,5 @@ const theme = createSlice({
   },
 });
 
-export default theme;
+export const themeActions = themeSlice.actions;
+export default themeSlice.reducer;

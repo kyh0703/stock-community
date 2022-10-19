@@ -2,38 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
-
-const HeaderBlock = styled.div`
-  position: fixed;
-  width: 100%;
-  background-color: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-`;
-
-const Wrapper = styled(Responsive)`
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .logo {
-    font-size: 1.125rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-  }
-  .right {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const Spacer = styled.div`
-  height: 4rem;
-`;
-
-const UserInfo = styled.div`
-  margin-right: 1rem;
-  font-weight: 800;
-`;
+import { FaSun } from 'react-icons/fa';
 
 interface Props {
   user?: {
@@ -47,26 +16,82 @@ const Header = ({ user, onLogout }: Props) => {
     <>
       <HeaderBlock>
         <Wrapper>
-          <Link to="/" className="logo">
-            Home
-          </Link>
-          <Link to="/" className="logo">
-            Community
-          </Link>
           {user ? (
-            <div className="right">
+            <Right>
+              <Items>
+                <Item>
+                  <Link to="/">Home</Link>
+                </Item>
+                <Item>
+                  <Link to="/">Community</Link>
+                </Item>
+                <Item>
+                  <FaSun />
+                </Item>
+              </Items>
               <UserInfo>{user.username}</UserInfo>
               <button onClick={onLogout}>로그아웃</button>
-            </div>
+            </Right>
           ) : (
-            <div className="right">
+            <Right>
               <button>로그인</button>
-            </div>
+            </Right>
           )}
         </Wrapper>
+        <Spacer />
       </HeaderBlock>
     </>
   );
 };
+
+const HeaderBlock = styled.div`
+  position: fixed;
+  height: 4rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+`;
+
+const Wrapper = styled(Responsive)`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+const Items = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+const Item = styled.li`
+  margin-right: 20px;
+  color: ${(props) => props.theme.headerColor};
+  transition: color 0.3s ease-in-out;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: ${(props) => props.theme.headerHoverColor};
+  }
+`;
+
+const UserInfo = styled.div`
+  margin-right: 1rem;
+  font-weight: 800;
+`;
+
+const Spacer = styled.div`
+  height: 4rem;
+`;
 
 export default Header;

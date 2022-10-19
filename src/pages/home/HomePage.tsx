@@ -1,7 +1,12 @@
-import React from 'react';
+import Header from '../../components/common/Header';
 
 const HomePage = () => {
-  return <div></div>;
+  return (
+    <>
+      <Header />
+      <div>홈입니다.</div>
+    </>
+  );
 };
 
 export default HomePage;
