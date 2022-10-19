@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/users/LoginPage';
@@ -6,7 +5,6 @@ import RegisterPage from './pages/users/Register';
 import PostWritePage from './pages/posts/PostWritePage';
 import PostListPage from './pages/posts/PostListPage';
 import PostPage from './pages/posts/PostPage';
-import { Helmet } from 'react-helmet-async';
 
 function App() {
   return (

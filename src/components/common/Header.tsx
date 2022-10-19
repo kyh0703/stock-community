@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
@@ -16,27 +16,19 @@ const Header = ({ user, onLogout }: Props) => {
     <>
       <HeaderBlock>
         <Wrapper>
-          {user ? (
-            <Right>
-              <Items>
-                <Item>
-                  <Link to="/">Home</Link>
-                </Item>
-                <Item>
-                  <Link to="/">Community</Link>
-                </Item>
-                <Item>
-                  <FaSun />
-                </Item>
-              </Items>
-              <UserInfo>{user.username}</UserInfo>
-              <button onClick={onLogout}>로그아웃</button>
-            </Right>
-          ) : (
-            <Right>
-              <button>로그인</button>
-            </Right>
-          )}
+          <Right>
+            <Items>
+              <Item>
+                <Link to="/">Home</Link>
+              </Item>
+              <Item>
+                <Link to="/posts">게시글</Link>
+              </Item>
+              <Item>
+                <FaSun />
+              </Item>
+            </Items>
+          </Right>
         </Wrapper>
         <Spacer />
       </HeaderBlock>
@@ -56,6 +48,7 @@ const HeaderBlock = styled.div`
 
 const Wrapper = styled(Responsive)`
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,8 +56,10 @@ const Wrapper = styled(Responsive)`
 
 const Right = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
-  position: relative;
+  justify-content: flex-end;
+  margin-right: 20px;
 `;
 
 const Items = styled.ul`
