@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { create } from 'domain';
 
 export type ThemeState = {
-  theme: 'dark' | 'light' | 'default';
-  systemTheme: 'dark' | 'light' | 'not-ready';
+  theme: 'dark' | 'light';
 };
 
 const initialState: ThemeState = {
-  theme: 'default',
-  systemTheme: 'not-ready',
+  theme: 'dark',
 };
 
 const themeSlice = createSlice({
@@ -20,9 +18,6 @@ const themeSlice = createSlice({
     },
     enableLightMode(state) {
       state.theme = 'light';
-    },
-    setSystemTheme(state, action: PayloadAction<'dark' | 'light'>) {
-      state.systemTheme = action.payload;
     },
   },
 });

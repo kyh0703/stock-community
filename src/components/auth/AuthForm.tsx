@@ -8,7 +8,7 @@ const AuthFormBlock = styled.div``;
 const StyledInput = styled.input``;
 
 const ErrorMessage = styled.div`
-  color: ${(props) => props.theme.errorMessage};
+  color: ${(props) => props.theme.errorColor};
   text-align: center;
   font-size: 0.875rem;
   margin-top: 1rem;

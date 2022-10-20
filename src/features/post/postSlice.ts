@@ -1,14 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Post } from '../../types/post';
 import { fetchPostById } from './postAPI';
 
 export interface PostState {
-  post: null;
-  error: null;
+  loading: boolean;
+  post: Post | null;
+  error?: string | null;
 }
 
 const initialState: PostState = {
+  loading: false,
   post: null,
-  error: null,
+  error: '',
 };
 
 const postSlice = createSlice({
@@ -16,21 +19,21 @@ const postSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // 진행 중
     builder.addCase(fetchPostById.pending, (state) => {
+      state.loading = true;
       state.error = null;
     });
-    // 처리 완료
     builder.addCase(fetchPostById.fulfilled, (state, { payload: post }) => {
+      state.loading = false;
       state.post = post;
-      state.error = null;
+      state.error = '';
     });
-    // 처리 실패
-    builder.addCase(fetchPostById.rejected, (state, { payload: error }) => {
-      state.error = null;
+    builder.addCase(fetchPostById.rejected, (state, { error }) => {
+      state.loading = false;
+      state.post = null;
+      state.error = error.message;
     });
   },
 });
 
-// export reducer
 export default postSlice.reducer;

@@ -9,6 +9,9 @@ declare module 'styled-components' {
     headerBackgroundColor: string;
     bodyColor: string;
     bodyBackgroundColor: string;
-    errorMessage: string;
+    buttonColor: string;
+    buttonBackgroundColor: string;
+    buttonHoverColor: string;
+    errorColor: string;
   }
 }

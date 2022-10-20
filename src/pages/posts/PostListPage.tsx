@@ -1,7 +1,16 @@
 import React from 'react';
+import Button from '../../components/common/Button';
+import HeaderContainer from '../../container/common/HeaderContainer';
+import PostListContainer from '../../container/posts/PostListContainer';
 
 const PostListPage = () => {
-  return <div>포스트 리스트 페이지입니다.</div>;
+  return (
+    <>
+      <HeaderContainer />
+      <PostListContainer />
+      <Button color="darkGray">테스트버튼입니다</Button>
+    </>
+  );
 };
 
 export default PostListPage;

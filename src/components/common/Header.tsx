@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 import { FaSun } from 'react-icons/fa';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { themeActions } from '../../features/theme/themeSlice';
+import Button from './Button';
 
 interface Props {
   user?: {
@@ -12,6 +15,20 @@ interface Props {
 }
 
 const Header = ({ user, onLogout }: Props) => {
+  const { theme } = useAppSelector(({ theme }) => ({
+    theme: theme.theme,
+  }));
+  const dispatch = useAppDispatch();
+
+  // on toggle theme button event
+  const onToggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (theme === 'dark') {
+      dispatch(themeActions.enableLightMode());
+    } else {
+      dispatch(themeActions.enableDarkMode());
+    }
+  };
+
   return (
     <>
       <HeaderBlock>
@@ -25,13 +42,13 @@ const Header = ({ user, onLogout }: Props) => {
                 <Link to="/posts">게시글</Link>
               </Item>
               <Item>
-                <FaSun />
+                <Button onClick={onToggleTheme}>테마를 변경해보자</Button>
               </Item>
             </Items>
           </Right>
         </Wrapper>
-        <Spacer />
       </HeaderBlock>
+      <Spacer />
     </>
   );
 };
