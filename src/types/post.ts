@@ -1,7 +1,7 @@
 export interface Post {
-  id: number;
+  id?: number;
   title: string;
   body: string;
   tags: string[];
-  publish_at: Date;
+  publish_at?: Date;
 }
