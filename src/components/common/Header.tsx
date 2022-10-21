@@ -42,6 +42,9 @@ const Header = ({ user, onLogout }: Props) => {
                 <Link to="/posts">게시글</Link>
               </Item>
               <Item>
+                <Link to="/write">임시용 쓰기 페이지 접근</Link>
+              </Item>
+              <Item>
                 <Button onClick={onToggleTheme}>테마를 변경해보자</Button>
               </Item>
             </Items>

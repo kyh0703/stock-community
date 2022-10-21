@@ -1,6 +1,6 @@
 import { prototype } from 'events';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../themes/light';
 
 type ColorType =
@@ -59,6 +59,27 @@ const ButtonBlock = styled.button<{
   &:focus {
     color: ${(props) => props.theme.buttonHoverColor};
   }
+
+  ${(props) =>
+    props.size === 'medium' &&
+    css`
+      height: 2rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      font-size: 1rem;
+    `}
+
+  ${(props) =>
+    props.size === 'large' &&
+    css`
+      height: 2.5rem;
+      padding-left: 1.125rem;
+      padding-right: 1.125rem;
+      & + & {
+        margin-left: 0.875rem;
+      }
+      font-size: 1.125rem;
+    `}
 `;
 
 export default Button;

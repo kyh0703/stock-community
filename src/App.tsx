@@ -5,7 +5,6 @@ import RegisterPage from './pages/users/Register';
 import PostWritePage from './pages/posts/PostWritePage';
 import PostListPage from './pages/posts/PostListPage';
 import PostPage from './pages/posts/PostPage';
-import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import darkTheme from './themes/dark';
 import lightTheme from './themes/light';
