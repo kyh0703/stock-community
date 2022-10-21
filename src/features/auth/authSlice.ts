@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { login, register } from './authAPI';
 
 export interface AuthState {
   register: {
@@ -11,7 +12,7 @@ export interface AuthState {
     password: string;
   };
   auth: null;
-  authError: null;
+  authError?: string | null;
 }
 
 const initialState: AuthState = {
@@ -46,6 +47,22 @@ const authSlice = createSlice({
     LoginFailure: (state, { payload: authError }) => {
       state.authError = authError;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(register.fulfilled, (state, { payload: auth }) => {
+      state.auth = auth;
+      state.authError = null;
+    });
+    builder.addCase(register.rejected, (state, { error }) => {
+      state.authError = error.message;
+    });
+    builder.addCase(login.fulfilled, (state, { payload: auth }) => {
+      state.auth = auth;
+      state.authError = null;
+    });
+    builder.addCase(login.rejected, (state, { error }) => {
+      state.authError = error.message;
+    });
   },
 });
 

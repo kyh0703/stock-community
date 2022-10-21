@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import themeProducer from '../features/theme/themeSlice';
-import postReducer from '../features/post/postSlice';
 import postsReducer from '../features/posts/PostsSlice';
 import userReducer from '../features/user/userSlice';
 
@@ -8,7 +7,6 @@ import userReducer from '../features/user/userSlice';
 export const store = configureStore({
   reducer: {
     theme: themeProducer,
-    post: postReducer,
     posts: postsReducer,
     user: userReducer,
   },

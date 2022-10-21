@@ -6,7 +6,7 @@ const RegisterForm = () => {
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { post } = useAppSelector((state) => state.post);
+  //const { post } = useAppSelector((state) => state.posts.post);
 
   // Input 변경 이벤트 핸들러
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

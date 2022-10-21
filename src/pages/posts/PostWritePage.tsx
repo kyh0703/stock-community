@@ -1,7 +1,15 @@
 import React from 'react';
+import Responsive from '../../components/common/Responsive';
+import HeaderContainer from '../../container/common/HeaderContainer';
+import EditorContainer from '../../container/write/EditorContainer';
 
 const PostWritePage = () => {
-  return <div>포스트 등록 페이지입니다.</div>;
+  return (
+    <Responsive>
+      <HeaderContainer />
+      <EditorContainer />
+    </Responsive>
+  );
 };
 
 export default PostWritePage;

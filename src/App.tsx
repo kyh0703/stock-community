@@ -16,7 +16,6 @@ function App() {
   const { theme } = useAppSelector(({ theme }) => ({
     theme: theme.theme,
   }));
-  const dispatch = useAppDispatch();
 
   return (
     <>

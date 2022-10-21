@@ -5,7 +5,7 @@ import Responsive from '../common/Responsive';
 interface PostListProps {
   posts: Post[] | null;
   loading: boolean;
-  error: string | null;
+  error?: string | null;
 }
 
 const PostList = ({ posts, loading, error }: PostListProps) => {

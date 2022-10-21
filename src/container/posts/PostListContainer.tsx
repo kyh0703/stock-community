@@ -5,12 +5,13 @@ import PostList from '../../components/posts/PostList';
 
 const PostListContainer = () => {
   const { posts, loading, error } = useAppSelector(({ posts }) => ({
-    posts: posts.posts,
-    loading: posts.loading,
-    error: posts.error,
+    posts: posts.list.data,
+    loading: posts.list.loading,
+    error: posts.list.error,
   }));
   const dispatch = useAppDispatch();
 
+  // loading posts data
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);

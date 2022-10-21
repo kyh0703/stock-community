@@ -1,40 +1,107 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { write } from 'fs';
 import { Post } from '../../types/post';
-import { fetchPosts } from './postsAPI';
+import {
+  fetchPostById,
+  fetchPosts,
+  updatePostById,
+  removePostById,
+} from './postsAPI';
 
 interface PostsState {
-  loading: boolean;
-  error: string | null;
-  posts: Post[] | null;
-  lastPage: number;
+  write: {
+    title: string;
+    body: string;
+    tags?: string[];
+  };
+  list: {
+    loading: boolean;
+    error?: string | null;
+    data: Post[] | null;
+    lastPage: number;
+  };
+  post: Post | null;
+  postError?: string | null;
 }
 
 const initialState: PostsState = {
-  loading: false,
-  posts: null,
-  error: null,
-  lastPage: 1,
+  write: {
+    title: '',
+    body: '',
+    tags: [],
+  },
+  list: {
+    loading: false,
+    error: null,
+    data: null,
+    lastPage: 1,
+  },
+  post: null,
+  postError: null,
 };
+
+export interface InputPayload {
+  key: 'body' | 'title';
+  value: string;
+}
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    initWriteFiled: (state) => {
+      state.write.title = '';
+      state.write.body = '';
+    },
+    changeWriteField: (
+      state,
+      { payload: { key, value } }: PayloadAction<InputPayload>,
+    ) => ({
+      ...state,
+      write: {
+        ...state.write,
+        [key]: value,
+      },
+    }),
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
-      state.loading = true;
-      state.error = null;
+      state.list.loading = true;
+      state.list.error = null;
     });
     builder.addCase(fetchPosts.fulfilled, (state, { payload: posts }) => {
-      state.loading = false;
-      state.posts = posts;
-      state.error = null;
+      console.log(posts);
+      state.list.loading = false;
+      state.list.data = posts;
+      state.list.error = null;
     });
     builder.addCase(fetchPosts.rejected, (state, { payload: error }) => {
-      state.loading = false;
-      state.error = null;
+      state.list.loading = false;
+      state.list.error = null;
+    });
+    builder.addCase(fetchPostById.fulfilled, (state, { payload: post }) => {
+      state.post = post;
+      state.postError = null;
+    });
+    builder.addCase(fetchPostById.rejected, (state, { error }) => {
+      state.postError = error.message;
+    });
+    builder.addCase(updatePostById.fulfilled, (state, { payload: post }) => {
+      state.post = post;
+      state.postError = '';
+    });
+    builder.addCase(updatePostById.rejected, (state, { error }) => {
+      state.postError = error.message;
+    });
+    builder.addCase(removePostById.fulfilled, (state, { payload: post }) => {
+      state.post = null;
+      state.postError = '';
+    });
+    builder.addCase(removePostById.rejected, (state, { error }) => {
+      state.postError = error.message;
     });
   },
 });
 
+export const postsAction = postsSlice.actions;
 export default postsSlice.reducer;
