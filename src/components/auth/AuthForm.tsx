@@ -3,9 +3,77 @@ import React, { FormEventHandler } from 'react';
 import { Form } from 'react-router-dom';
 import styled from 'styled-components';
 
-const AuthFormBlock = styled.div``;
+interface Form {
+  username: string;
+  password: string;
+  passwordConfirm?: string;
+}
 
-const StyledInput = styled.input``;
+interface AuthFormProps {
+  type: 'login' | 'register';
+  onChange: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  error: null | string;
+  form: Form;
+}
+
+const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
+  const text = textMap[type];
+  return (
+    <AuthFormBlock>
+      <h3>{text}</h3>
+      <form onSubmit={onSubmit}>
+        <StyledInput
+          autoComplete="username"
+          name="username"
+          placeholder="아이디"
+          value={form.username}
+        />
+        <StyledInput
+          autoComplete="new-password"
+          name="password"
+          placeholder="비밀번호"
+          type="password"
+          value={form.password}
+        />
+        {type === 'register' && (
+          <StyledInput
+            autoComplete="new-password"
+            name="passwordConfirm"
+            placeholder="비밀번호 확인"
+            type="password"
+            value={form.passwordConfirm}
+          />
+        )}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+      </form>
+    </AuthFormBlock>
+  );
+};
+
+const AuthFormBlock = styled.div`
+  h3 {
+    margin: 0;
+    color: blue;
+    margin-bottom: 1rem;
+  }
+`;
+
+const StyledInput = styled.input`
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid red;
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 100%;
+  &:focus {
+    color: yellow;
+    border-bottom: 1px solid red;
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+`;
 
 const ErrorMessage = styled.div`
   color: ${(props) => props.theme.errorColor};
@@ -21,43 +89,6 @@ const ButtonWithMarginTop = styled.button`
 const textMap = {
   login: '로그인',
   register: '회원가입',
-};
-
-interface Props {
-  type: 'login' | 'register';
-  onSubmit: () => void;
-  error: null | string;
-}
-
-const AuthForm = ({ type, onSubmit, error }: Props) => {
-  const text = textMap[type];
-  return (
-    <AuthFormBlock>
-      <h3>{text}</h3>
-      <form onSubmit={onSubmit}>
-        <StyledInput
-          autoComplete="username"
-          name="username"
-          placeholder="아이디"
-        />
-        <StyledInput
-          autoComplete="new-password"
-          name="password"
-          placeholder="비밀번호"
-          type="password"
-        />
-        {type === 'register' && (
-          <StyledInput
-            autoComplete="new-password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            type="password"
-          />
-        )}
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-      </form>
-    </AuthFormBlock>
-  );
 };
 
 export default AuthForm;

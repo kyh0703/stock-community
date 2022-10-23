@@ -2,6 +2,8 @@ import React from 'react';
 import WriteActionButtons from '../../components/write/PostWriteActionButtons';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { postsAction } from '../../features/posts/PostsSlice';
+import { createPostById } from '../../features/posts/postsAPI';
 
 const WriteActionButtonContainer = () => {
   const navigation = useNavigate();
@@ -16,11 +18,15 @@ const WriteActionButtonContainer = () => {
     }),
   );
 
+  const onPublish = () => {
+    dispatch(createPostById({ title, body, tags }));
+  };
+
   const onCancel = () => {
     navigation(-1);
   };
 
-  return <WriteActionButtons onCancel={onCancel} />;
+  return <WriteActionButtons onPublish={onPublish} onCancel={onCancel} />;
 };
 
 export default WriteActionButtonContainer;

@@ -3,13 +3,17 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 
 interface WriteActionButtonsProps {
+  onPublish: () => void;
   onCancel: () => void;
 }
 
-const WriteActionButtons = ({ onCancel }: WriteActionButtonsProps) => {
+const WriteActionButtons = ({
+  onPublish,
+  onCancel,
+}: WriteActionButtonsProps) => {
   return (
     <WriteActionButtonsBlock>
-      <Button>포스트</Button>
+      <Button onClick={onPublish}>포스트</Button>
       <Button onClick={onCancel}>취소</Button>
     </WriteActionButtonsBlock>
   );

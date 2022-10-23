@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import themeProducer from '../features/theme/themeSlice';
 import postsReducer from '../features/posts/PostsSlice';
 import userReducer from '../features/user/userSlice';
+import authReducer from '../features/auth/authSlice';
 
 // configure
 export const store = configureStore({
   reducer: {
     theme: themeProducer,
     posts: postsReducer,
+    auth: authReducer,
     user: userReducer,
   },
 });

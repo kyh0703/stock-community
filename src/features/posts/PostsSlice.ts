@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { write } from 'fs';
 import { Post } from '../../types/post';
+import { createPostById } from './postsAPI';
+import { create } from 'domain';
 import {
   fetchPostById,
   fetchPosts,
@@ -65,12 +67,21 @@ const postsSlice = createSlice({
     }),
   },
   extraReducers: (builder) => {
+    builder.addCase(createPostById.fulfilled, (state) => {
+      state.post = null;
+      state.postError = null;
+    });
+    builder.addCase(createPostById.fulfilled, (state, { payload: post }) => {
+      state.post = post;
+    });
+    builder.addCase(createPostById.rejected, (state, { error }) => {
+      state.postError = error.message;
+    });
     builder.addCase(fetchPosts.pending, (state) => {
       state.list.loading = true;
       state.list.error = null;
     });
     builder.addCase(fetchPosts.fulfilled, (state, { payload: posts }) => {
-      console.log(posts);
       state.list.loading = false;
       state.list.data = posts;
       state.list.error = null;

@@ -3,12 +3,12 @@ import { login, register } from './authAPI';
 
 export interface AuthState {
   register: {
-    email: string;
+    username: string;
     password: string;
     passwordConfirm: string;
   };
   login: {
-    email: string;
+    username: string;
     password: string;
   };
   auth: null;
@@ -17,12 +17,12 @@ export interface AuthState {
 
 const initialState: AuthState = {
   register: {
-    email: '',
+    username: '',
     password: '',
     passwordConfirm: '',
   },
   login: {
-    email: '',
+    username: '',
     password: '',
   },
   auth: null,
