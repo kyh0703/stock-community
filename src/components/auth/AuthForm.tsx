@@ -18,7 +18,7 @@ interface Form {
 
 interface AuthFormProps {
   type: 'login' | 'register';
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement> | null) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   error: null | string;
   form: Form;

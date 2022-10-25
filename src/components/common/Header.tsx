@@ -119,8 +119,10 @@ const ThemeLogoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.3125rem;
-  border: 1px solid ${(props) => props.theme.headerColor};
   border-radius: 50%;
+  &:hover {
+    background-color: ${(props) => props.theme.headerColor};
+  }
 `;
 
 const UserInfo = styled.div`
