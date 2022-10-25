@@ -20,8 +20,8 @@ const LoginForm = () => {
   // Submit Form Event
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { username, password } = form;
-    dispatch(login({ username, password }));
+    const { email, password } = form;
+    dispatch(login({ email, password }));
   };
 
   return (

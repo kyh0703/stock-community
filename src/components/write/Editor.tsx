@@ -87,11 +87,12 @@ const EditorBlock = styled(Responsive)`
 `;
 
 const TitleInput = styled.input`
+  background: inherit;
   font-size: 3rem;
   outline: none;
   padding-bottom: 0.5rem;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${(props) => props.theme.bodyColor};
   margin-bottom: 2rem;
   width: 100%;
 `;

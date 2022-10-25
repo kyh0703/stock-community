@@ -67,7 +67,7 @@ const postsSlice = createSlice({
     }),
   },
   extraReducers: (builder) => {
-    builder.addCase(createPostById.fulfilled, (state) => {
+    builder.addCase(createPostById.pending, (state) => {
       state.post = null;
       state.postError = null;
     });

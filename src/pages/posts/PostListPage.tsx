@@ -8,7 +8,7 @@ const PostListPage = () => {
     <>
       <HeaderContainer />
       <PostListContainer />
-      <Button color="darkGray">테스트버튼입니다</Button>
+      <Button color="gray">테스트버튼입니다</Button>
     </>
   );
 };

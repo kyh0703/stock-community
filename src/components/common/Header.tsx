@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
-import { FaSun } from 'react-icons/fa';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { themeActions } from '../../features/theme/themeSlice';
 import Button from './Button';
+import { prototype } from 'events';
+import { useMemo, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   user?: {
@@ -21,7 +24,7 @@ const Header = ({ user, onLogout }: Props) => {
   const dispatch = useAppDispatch();
 
   // on toggle theme button event
-  const onToggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onToggleTheme = (e: React.MouseEvent<HTMLOrSVGElement>) => {
     if (theme === 'dark') {
       dispatch(themeActions.enableLightMode());
     } else {
@@ -45,7 +48,13 @@ const Header = ({ user, onLogout }: Props) => {
                 <Link to="/write">임시용 쓰기 페이지 접근</Link>
               </Item>
               <Item>
-                <Button onClick={onToggleTheme}>테마를 변경해보자</Button>
+                <ThemeLogoWrapper>
+                  {theme === 'dark' ? (
+                    <FaMoon onClick={onToggleTheme} />
+                  ) : (
+                    <FaSun onClick={onToggleTheme} />
+                  )}
+                </ThemeLogoWrapper>
               </Item>
             </Items>
           </Right>
@@ -62,7 +71,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: ${(props) => props.theme.headerBackgroundColor};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
 
@@ -95,9 +104,23 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.125rem;
   &:hover {
     color: ${(props) => props.theme.headerHoverColor};
   }
+`;
+
+const ThemeLogoWrapper = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3125rem;
+  border: 1px solid ${(props) => props.theme.headerColor};
+  border-radius: 50%;
 `;
 
 const UserInfo = styled.div`

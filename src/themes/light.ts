@@ -1,11 +1,12 @@
 import { DefaultTheme } from 'styled-components';
+import palette from '../lib/styles/palette';
 
 const lightTheme: DefaultTheme = {
   id: 'light',
   LogoColor: 'red',
-  headerColor: 'white',
+  headerColor: palette.gray6,
   headerHoverColor: 'black',
-  headerBackgroundColor: 'black',
+  headerBackgroundColor: palette.gray0,
   bodyColor: 'black',
   bodyBackgroundColor: 'white',
   buttonColor: 'black',

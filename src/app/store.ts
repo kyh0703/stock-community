@@ -9,8 +9,8 @@ export const store = configureStore({
   reducer: {
     theme: themeProducer,
     posts: postsReducer,
-    auth: authReducer,
     user: userReducer,
+    auth: authReducer,
   },
 });
 

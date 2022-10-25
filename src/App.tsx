@@ -10,11 +10,24 @@ import darkTheme from './themes/dark';
 import lightTheme from './themes/light';
 import { useAppSelector, useAppDispatch } from './app/hooks';
 import GlobalStyle from './GlobalStyles';
+import { themeActions } from './features/theme/themeSlice';
+import { useEffect } from 'react';
 
 function App() {
   const { theme } = useAppSelector(({ theme }) => ({
     theme: theme.theme,
   }));
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const saveTheme = localStorage.getItem('theme');
+    if (!saveTheme) return;
+    if (saveTheme === 'dark') {
+      dispatch(themeActions.enableDarkMode());
+    } else {
+      dispatch(themeActions.enableLightMode());
+    }
+  }, []);
 
   return (
     <>

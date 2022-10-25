@@ -1,34 +1,29 @@
 import { prototype } from 'events';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { buttonColorMap } from '../../lib/styles/palette';
 import theme from '../../themes/light';
 
-type ColorType =
-  | 'teal'
-  | 'gray'
-  | 'darkGray'
-  | 'lightGray'
-  | 'transparent'
-  | 'red';
-
+type ColorType = 'teal' | 'gray' | 'blue' | 'red' | 'cyan';
 type ButtonSize = 'medium' | 'large';
 
 interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   // TODO 추후 컬러 추가
-  // color?: ColorType;
+  color?: ColorType;
   size?: ButtonSize;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   ref,
-  // color = 'teal',
+  color = 'teal',
   size = 'medium',
   ...rest
 }) => {
   const htmlProps = rest as any;
   return (
     <ButtonBlock
+      color={color}
       size={size}
       onClick={(e) => {
         if (htmlProps.onClick) {
@@ -43,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 const ButtonBlock = styled.button<{
+  color: ColorType;
   size: ButtonSize;
 }>`
   display: inline-flex;
@@ -52,12 +48,12 @@ const ButtonBlock = styled.button<{
   cursor: pointer;
   outline: none;
   border: none;
-  color: ${(props) => props.theme.buttonColor};
-  background: ${(props) => props.theme.buttonBackgroundColor};
+  color: ${(props) => buttonColorMap[props.color].color};
+  background: ${(props) => buttonColorMap[props.color].background};
   border-radius: 4px;
   &:hover,
   &:focus {
-    color: ${(props) => props.theme.buttonHoverColor};
+    color: ${(props) => buttonColorMap[props.color].hoverBackground};
   }
 
   ${(props) =>

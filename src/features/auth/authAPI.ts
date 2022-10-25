@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_HOST = 'http://localhost:8000';
 
 export interface LoginUserParams {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -18,10 +18,10 @@ export const login = createAsyncThunk(
 );
 
 export interface RegisterUserParams {
+  email: string;
   username: string;
   password: string;
   passwordConfirm: string;
-  email: string;
 }
 
 export const register = createAsyncThunk(

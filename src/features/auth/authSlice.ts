@@ -3,12 +3,13 @@ import { login, register } from './authAPI';
 
 export interface AuthState {
   register: {
+    email: string;
     username: string;
     password: string;
     passwordConfirm: string;
   };
   login: {
-    username: string;
+    email: string;
     password: string;
   };
   auth: null;
@@ -17,12 +18,13 @@ export interface AuthState {
 
 const initialState: AuthState = {
   register: {
+    email: '',
     username: '',
     password: '',
     passwordConfirm: '',
   },
   login: {
-    username: '',
+    email: '',
     password: '',
   },
   auth: null,
@@ -32,22 +34,7 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    registerSuccess: (state, { payload: auth }) => {
-      state.auth = auth;
-      state.authError = null;
-    },
-    registerFailure: (state, { payload: authError }) => {
-      state.authError = authError;
-    },
-    LoginSuccess: (state, { payload: auth }) => {
-      state.auth = auth;
-      state.authError = null;
-    },
-    LoginFailure: (state, { payload: authError }) => {
-      state.authError = authError;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, { payload: auth }) => {
       state.auth = auth;

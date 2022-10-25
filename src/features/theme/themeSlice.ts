@@ -14,9 +14,11 @@ const themeSlice = createSlice({
   initialState: initialState,
   reducers: {
     enableDarkMode(state) {
+      localStorage.setItem('theme', 'dark');
       state.theme = 'dark';
     },
     enableLightMode(state) {
+      localStorage.setItem('theme', 'light');
       state.theme = 'light';
     },
   },

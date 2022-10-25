@@ -14,7 +14,9 @@ const WriteActionButtons = ({
   return (
     <WriteActionButtonsBlock>
       <Button onClick={onPublish}>포스트</Button>
-      <Button onClick={onCancel}>취소</Button>
+      <Button color="red" onClick={onCancel}>
+        취소
+      </Button>
     </WriteActionButtonsBlock>
   );
 };

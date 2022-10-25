@@ -2,9 +2,16 @@ import { format } from 'path';
 import React, { FormEventHandler } from 'react';
 import { Form } from 'react-router-dom';
 import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+
+const textMap = {
+  login: '로그인',
+  register: '회원가입',
+};
 
 interface Form {
-  username: string;
+  email: string;
+  username?: string;
   password: string;
   passwordConfirm?: string;
 }
@@ -24,11 +31,19 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
       <h3>{text}</h3>
       <form onSubmit={onSubmit}>
         <StyledInput
-          autoComplete="username"
-          name="username"
+          autoComplete="email"
+          name="email"
           placeholder="아이디"
-          value={form.username}
+          value={form.email}
         />
+        {type === 'register' && (
+          <StyledInput
+            autoComplete="username"
+            name="username"
+            placeholder="이름"
+            value={form.username}
+          />
+        )}
         <StyledInput
           autoComplete="new-password"
           name="password"
@@ -62,7 +77,7 @@ const AuthFormBlock = styled.div`
 const StyledInput = styled.input`
   font-size: 1rem;
   border: none;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid ${palette.gray1};
   padding-bottom: 0.5rem;
   outline: none;
   width: 100%;
@@ -85,10 +100,5 @@ const ErrorMessage = styled.div`
 const ButtonWithMarginTop = styled.button`
   margin-top: 1rem;
 `;
-
-const textMap = {
-  login: '로그인',
-  register: '회원가입',
-};
 
 export default AuthForm;
