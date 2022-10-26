@@ -25,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
     <ButtonBlock
       color={color}
       size={size}
+      {...htmlProps}
       onClick={(e) => {
         if (htmlProps.onClick) {
           htmlProps.onClick(e);
