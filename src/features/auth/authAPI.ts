@@ -8,7 +8,7 @@ export interface LoginUserParams {
   password: string;
 }
 
-export const login = createAsyncThunk(
+export const loginUser = createAsyncThunk(
   'auth/login',
   async (params: LoginUserParams) => {
     const response = await axios.post(`${API_HOST}/users/login`, { params });
@@ -24,7 +24,7 @@ export interface RegisterUserParams {
   passwordConfirm: string;
 }
 
-export const register = createAsyncThunk(
+export const registerUser = createAsyncThunk(
   'auth/register',
   async (params: RegisterUserParams) => {
     const response = await axios.post(`${API_HOST}/api/users/signup`, {

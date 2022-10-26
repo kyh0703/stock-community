@@ -39,7 +39,7 @@ const AuthBox = styled.div`
   width: 360px;
   color: ${(props) => props.theme.bodyContentColor};
   background: ${(props) => props.theme.bodyContentBackgroundColor};
-  border-radius: 2px;
+  border-radius: 10px;
 `;
 
 export default AuthTemplate;

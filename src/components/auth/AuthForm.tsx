@@ -9,7 +9,7 @@ const textMap = {
   register: '회원가입',
 };
 
-interface Form {
+interface AuthFormParams {
   email: string;
   username?: string;
   password: string;
@@ -21,7 +21,7 @@ interface AuthFormProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement> | null) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   error: null | string;
-  form: Form;
+  form: AuthFormParams;
 }
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {

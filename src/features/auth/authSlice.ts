@@ -1,32 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { login, register } from './authAPI';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loginUser, registerUser } from './authAPI';
 
 export interface AuthState {
-  register: {
-    email: string;
-    username: string;
-    password: string;
-    passwordConfirm: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
   auth: null;
   authError?: string | null;
 }
 
 const initialState: AuthState = {
-  register: {
-    email: '',
-    username: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  login: {
-    email: '',
-    password: '',
-  },
   auth: null,
   authError: null,
 };
@@ -36,18 +16,18 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(register.fulfilled, (state, { payload: auth }) => {
+    builder.addCase(registerUser.fulfilled, (state, { payload: auth }) => {
       state.auth = auth;
       state.authError = null;
     });
-    builder.addCase(register.rejected, (state, { error }) => {
+    builder.addCase(registerUser.rejected, (state, { error }) => {
       state.authError = error.message;
     });
-    builder.addCase(login.fulfilled, (state, { payload: auth }) => {
+    builder.addCase(loginUser.fulfilled, (state, { payload: auth }) => {
       state.auth = auth;
       state.authError = null;
     });
-    builder.addCase(login.rejected, (state, { error }) => {
+    builder.addCase(loginUser.rejected, (state, { error }) => {
       state.authError = error.message;
     });
   },
