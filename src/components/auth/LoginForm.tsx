@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { LoginUserParams, loginUser } from '../../features/auth/authAPI';
+import { LoginRequest, loginUser } from '../../features/auth/authAPI';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styled from 'styled-components';
@@ -9,10 +9,17 @@ import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { FaLock, FaUser } from 'react-icons/fa';
+import { useEffect } from 'react';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
+    auth: auth.auth,
+    authError: auth.authError,
+    user: user.user,
+  }));
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required('아이디가 입력되지 않았습니다')
@@ -22,22 +29,28 @@ const LoginForm = () => {
       .min(6, '비밀번호는 최소 6자리 이상입니다')
       .max(40, '비밀번호는 최대 40자리 이하입니다'),
   });
-  const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
-    auth: auth.auth,
-    authError: auth.authError,
-    user: user.user,
-  }));
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginUserParams>({
+  } = useForm<LoginRequest>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: LoginUserParams) => {
+  const onSubmit = (data: LoginRequest) => {
     dispatch(loginUser(data));
   };
+
+  useEffect(() => {
+    if (authError) {
+      alert('로그인이 실패하였습니다');
+      return;
+    }
+    if (auth) {
+      navigate('/'); // go home
+    }
+  }, [authError, auth]);
 
   return (
     <LoginFormBlock>

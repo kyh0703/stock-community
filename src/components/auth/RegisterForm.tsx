@@ -3,24 +3,30 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
-import { registerUser, RegisterUserParams } from '../../features/auth/authAPI';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { registerUser, RegisterRequest } from '../../features/auth/authAPI';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import { FaUser } from 'react-icons/fa';
 import Input from '../common/Input';
+import { useEffect } from 'react';
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
+    auth: auth.auth,
+    authError: auth.authError,
+    user: user.user,
+  }));
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required('아이디가 입력되지 않았습니다')
       .email('아이디는 이메일형식입니다'),
     username: Yup.string()
       .required('이름이 입력되지 않았습니다')
-      .min(6, '이름은 최소 6자리 이상입니다')
+      .min(2, '이름은 최소 2자리 이상입니다')
       .max(20, '이름은 최대 20자리 이하입니다'),
     password: Yup.string()
       .required('비밀번호가 입력되지 않았습니다')
@@ -35,12 +41,21 @@ const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterUserParams>({
+  } = useForm<RegisterRequest>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: RegisterUserParams) => {
+  const onSubmit = (data: RegisterRequest) => {
+    console.log(data);
     dispatch(registerUser(data));
   };
+
+  useEffect(() => {
+    if (authError) {
+      alert('회원가입이 실패하였습니다' + authError);
+      return;
+    }
+    // navigate('/'); // go home
+  }, [authError, auth]);
 
   return (
     <RegisterFormBlock>

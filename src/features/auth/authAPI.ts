@@ -3,21 +3,28 @@ import axios from 'axios';
 
 const API_HOST = 'http://localhost:8000';
 
-export interface LoginUserParams {
+export interface LoginRequest {
   email: string;
   password: string;
 }
 
+export interface LoginResponse {
+  email: string;
+  accessToken: string;
+}
+
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async (params: LoginUserParams) => {
-    const response = await axios.post(`${API_HOST}/users/login`, { params });
+  async (params: LoginRequest) => {
+    const response = await axios.post(`${API_HOST}/users/login`, params, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     const data = await response.data;
-    return data.value;
+    return data.value as LoginResponse;
   },
 );
 
-export interface RegisterUserParams {
+export interface RegisterRequest {
   email: string;
   username: string;
   password: string;
@@ -26,9 +33,9 @@ export interface RegisterUserParams {
 
 export const registerUser = createAsyncThunk(
   'auth/register',
-  async (params: RegisterUserParams) => {
-    const response = await axios.post(`${API_HOST}/api/users/signup`, {
-      params,
+  async (params: RegisterRequest) => {
+    const response = await axios.post(`${API_HOST}/api/users/signup`, params, {
+      headers: { 'Content-Type': 'application/json' },
     });
     const data = await response.data;
     return data.value;
