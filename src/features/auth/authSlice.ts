@@ -7,7 +7,7 @@ export interface AuthState {
     email: string;
     accessToken: string;
   } | null;
-  authError?: string | null;
+  authError?: string | null | undefined;
 }
 
 const initialState: AuthState = {

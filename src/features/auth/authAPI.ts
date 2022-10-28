@@ -3,6 +3,11 @@ import axios from 'axios';
 
 const API_HOST = 'http://localhost:8000';
 
+interface ServerErrors {
+  status: number;
+  errorMessage: string | null | undefined;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -24,12 +29,23 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const logout = () => {
+  axios.post(`${API_HOST}/api/users/logout`);
+};
+
 export interface RegisterRequest {
   email: string;
   username: string;
   password: string;
   passwordConfirm: string;
 }
+
+export interface RegisterResponse {}
+
+export const register = (params: RegisterRequest) =>
+  axios.post(`${API_HOST}/api/users/signup`, params, {
+    headers: { 'Content-Type': 'application/json' },
+  });
 
 export const registerUser = createAsyncThunk(
   'auth/register',
@@ -42,13 +58,17 @@ export const registerUser = createAsyncThunk(
   },
 );
 
-export const check = createAsyncThunk('auth/check', async () => {
+export const check = () => {
+  axios.get(`${API_HOST}/api/users/check`);
+};
+
+export const checkUser = createAsyncThunk('auth/check', async () => {
   const response = await axios.get(`${API_HOST}/api/users/check`);
   const data = await response.data;
   return data.value;
 });
 
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logoutUser = createAsyncThunk('auth/logout', async () => {
   const response = await axios.post(`${API_HOST}/api/users/logout`);
   const data = await response.data;
   return data.value;
