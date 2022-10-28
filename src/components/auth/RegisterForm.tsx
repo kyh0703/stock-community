@@ -16,7 +16,7 @@ const RegisterForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
     auth: auth.auth,
-    authError: auth.authError,
+    authError: auth.error,
     user: user.user,
   }));
 
@@ -36,6 +36,7 @@ const RegisterForm: React.FC = () => {
       .required('비밀번호 확인이 입력되지 않았습니다')
       .oneOf([Yup.ref('password'), null], 'confirm password dose not match'),
   });
+
   const {
     register,
     handleSubmit,
@@ -44,8 +45,8 @@ const RegisterForm: React.FC = () => {
   } = useForm<RegisterRequest>({
     resolver: yupResolver(validationSchema),
   });
+
   const onSubmit = (data: RegisterRequest) => {
-    console.log(data);
     dispatch(registerUser(data));
   };
 
@@ -56,6 +57,10 @@ const RegisterForm: React.FC = () => {
     }
     // navigate('/'); // go home
   }, [authError, auth]);
+
+  const onCancel = () => {
+    navigate('/');
+  };
 
   return (
     <RegisterFormBlock>
@@ -98,10 +103,17 @@ const RegisterForm: React.FC = () => {
         {errors.passwordConfirm && (
           <ErrorMessage>{errors.passwordConfirm.message}</ErrorMessage>
         )}
-        <RegisterButton color="teal">로그인</RegisterButton>
+        <RegisterButtonWrap>
+          <RegisterButton color="teal" type="submit">
+            회원가입
+          </RegisterButton>
+          <RegisterButton color="red" onClick={onCancel}>
+            돌아가기
+          </RegisterButton>
+        </RegisterButtonWrap>
       </form>
       <Footer>
-        <Link to="/register">회원가입</Link>
+        <Link to="/login">로그인</Link>
       </Footer>
     </RegisterFormBlock>
   );
@@ -113,6 +125,8 @@ const RegisterFormBlock = styled.div`
     color: ${palette.red1};
     margin-bottom: 1rem;
     font-size: 1.125rem;
+    text-align: center;
+    font-weight: bold;
   }
 `;
 
@@ -121,6 +135,13 @@ const ErrorMessage = styled.div`
   text-align: center;
   font-size: 0.875rem;
   margin-top: 1rem;
+`;
+
+const RegisterButtonWrap = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 `;
 
 const RegisterButton = styled(Button)`

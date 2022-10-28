@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import '../../lib/styles/palette';
 import palette from '../../lib/styles/palette';
 
-//interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 interface InputProps
   extends React.PropsWithRef<JSX.IntrinsicElements['input']> {
   id: string;
@@ -12,13 +11,6 @@ interface InputProps
   flex?: boolean;
 }
 
-// const Input: React.FC<InputProps> = ({
-//   id,
-//   label,
-//   flex = false,
-//   register,
-//   ...rest
-// }) => {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ id, label, flex = false, ...rest }, ref) => {
     return (
@@ -44,6 +36,18 @@ const InputWrap = styled.div<{ flex: boolean }>`
     `}
 `;
 
+const InputLabel = styled.label<{ flex: boolean }>`
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  ${(props) =>
+    props.flex &&
+    css`
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    `}
+`;
+
 const InputField = styled.input`
   font-size: 1rem;
   border: none;
@@ -58,18 +62,6 @@ const InputField = styled.input`
     color: ${palette.blue6};
     border-bottom: 1px solid ${palette.blue6};
   }
-`;
-
-const InputLabel = styled.label<{ flex: boolean }>`
-  text-align: left;
-  font-size: 1rem;
-  font-weight: bold;
-  ${(props) =>
-    props.flex &&
-    css`
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    `}
 `;
 
 export default Input;
