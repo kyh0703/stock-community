@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { LoginRequest, loginUser } from '../../features/auth/authAPI';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styled from 'styled-components';
@@ -10,6 +9,8 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { useEffect } from 'react';
+import { loginUser } from '../../features/auth/authSlice';
+import { LoginUserRequest } from '../../features/auth/authAPI';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -35,10 +36,10 @@ const LoginForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginRequest>({
+  } = useForm<LoginUserRequest>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: LoginRequest) => {
+  const onSubmit = (data: LoginUserRequest) => {
     dispatch(loginUser(data));
   };
 

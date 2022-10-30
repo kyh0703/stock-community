@@ -3,73 +3,43 @@ import axios from 'axios';
 
 const API_HOST = 'http://localhost:8000';
 
-interface ServerErrors {
+export interface ValidationErrors {
   status: number;
-  errorMessage: string | null | undefined;
+  error: string | null | undefined;
 }
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  email: string;
-  accessToken: string;
-}
-
-export const loginUser = createAsyncThunk(
-  'auth/login',
-  async (params: LoginRequest) => {
-    const response = await axios.post(`${API_HOST}/users/login`, params, {
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await response.data;
-    return data.value as LoginResponse;
-  },
-);
-
-export const logout = () => {
-  axios.post(`${API_HOST}/api/users/logout`);
-};
-
-export interface RegisterRequest {
+export interface RegisterUserRequest {
   email: string;
   username: string;
   password: string;
   passwordConfirm: string;
 }
 
-export interface RegisterResponse {}
+export interface RegisterUserResponse {}
 
-export const register = (params: RegisterRequest) =>
-  axios.post(`${API_HOST}/api/users/signup`, params, {
+export const register = <RegisterUserResponse>(fields: RegisterUserRequest) =>
+  axios.post<RegisterUserResponse>(`${API_HOST}/api/users/signup`, fields, {
     headers: { 'Content-Type': 'application/json' },
   });
 
-export const registerUser = createAsyncThunk(
-  'auth/register',
-  async (params: RegisterRequest) => {
-    const response = await axios.post(`${API_HOST}/api/users/signup`, params, {
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await response.data;
-    return data.value;
-  },
-);
+export interface LoginUserRequest {
+  email: string;
+  password: string;
+}
 
-export const check = () => {
-  axios.get(`${API_HOST}/api/users/check`);
+export interface LoginUserResponse {
+  email: string;
+  accessToken: string;
+}
+export const login = <LoginUserResponse>(fields: LoginUserRequest) =>
+  axios.post<LoginUserResponse>(`${API_HOST}/users/login`, fields, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+export const logout = (fields: null) => {
+  axios.post(`${API_HOST}/api/users/logout`);
 };
 
-export const checkUser = createAsyncThunk('auth/check', async () => {
-  const response = await axios.get(`${API_HOST}/api/users/check`);
-  const data = await response.data;
-  return data.value;
-});
-
-export const logoutUser = createAsyncThunk('auth/logout', async () => {
-  const response = await axios.post(`${API_HOST}/api/users/logout`);
-  const data = await response.data;
-  return data.value;
-});
+export const check = (fields: null) => {
+  axios.get(`${API_HOST}/api/users/check`);
+};

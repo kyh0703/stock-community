@@ -4,19 +4,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { registerUser, RegisterRequest } from '../../features/auth/authAPI';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { useEffect } from 'react';
+import { registerUser } from '../../features/auth/authSlice';
+import { RegisterUserRequest } from '../../features/auth/authAPI';
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
     auth: auth.auth,
-    authError: auth.error,
+    authError: auth.authError,
     user: user.user,
   }));
 
@@ -42,17 +43,17 @@ const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterRequest>({
+  } = useForm<RegisterUserRequest>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: RegisterRequest) => {
-    dispatch(registerUser(data));
+  const onSubmit = async (data: RegisterUserRequest) => {
+    const result = await dispatch(registerUser(data));
   };
 
   useEffect(() => {
     if (authError) {
-      alert('회원가입이 실패하였습니다' + authError);
+      alert(`회원가입이 실패하였습니다\n ${authError}`);
       return;
     }
     // navigate('/'); // go home
