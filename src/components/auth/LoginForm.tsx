@@ -48,9 +48,6 @@ const LoginForm = () => {
       alert('로그인이 실패하였습니다');
       return;
     }
-    if (auth) {
-      navigate('/'); // go home
-    }
   }, [authError, auth]);
 
   return (

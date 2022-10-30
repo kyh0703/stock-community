@@ -32,7 +32,7 @@ export interface LoginUserResponse {
   accessToken: string;
 }
 export const login = <LoginUserResponse>(fields: LoginUserRequest) =>
-  axios.post<LoginUserResponse>(`${API_HOST}/users/login`, fields, {
+  axios.post<LoginUserResponse>(`${API_HOST}/api/users/login`, fields, {
     headers: { 'Content-Type': 'application/json' },
   });
 

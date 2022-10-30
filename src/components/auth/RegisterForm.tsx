@@ -53,7 +53,7 @@ const RegisterForm: React.FC = () => {
 
   useEffect(() => {
     if (authError) {
-      alert(`회원가입이 실패하였습니다\n ${authError}`);
+      alert(`회원가입이 실패하였습니다\n${authError}`);
       return;
     }
     // navigate('/'); // go home
@@ -123,7 +123,7 @@ const RegisterForm: React.FC = () => {
 const RegisterFormBlock = styled.div`
   h3 {
     margin: 0;
-    color: ${palette.red1};
+    color: ${palette.cyan8};
     margin-bottom: 1rem;
     font-size: 1.125rem;
     text-align: center;
@@ -135,7 +135,7 @@ const ErrorMessage = styled.div`
   color: ${(props) => props.theme.errorColor};
   text-align: center;
   font-size: 0.875rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 `;
 
 const RegisterButtonWrap = styled.div`
