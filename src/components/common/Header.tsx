@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 import { FaSun, FaMoon } from 'react-icons/fa';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 import { themeActions } from '../../features/theme/themeSlice';
+import storage from '../../lib/storage';
+import { UserInfo } from '../../features/users/usersSlice';
 import Button from './Button';
-import { prototype } from 'events';
-import { useMemo, useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 
-interface Props {
-  user?: {
-    username: string;
-  };
+interface HeaderProps {
+  user: UserInfo;
   onLogout?: () => void;
 }
 
-const Header = ({ user, onLogout }: Props) => {
-  const { theme } = useAppSelector(({ theme }) => ({
-    theme: theme.theme,
-  }));
+const Header = ({ user, onLogout }: HeaderProps) => {
+  const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
 
   // on toggle theme button event
@@ -47,6 +42,11 @@ const Header = ({ user, onLogout }: Props) => {
               <Item>
                 <Link to="/write">임시용 쓰기 페이지 접근</Link>
               </Item>
+              {user ? (
+                <Button onClick={onLogout}>로그아웃</Button>
+              ) : (
+                <LoginButton to="/login">로그인</LoginButton>
+              )}
               <Item>
                 <ThemeLogoWrapper>
                   {theme === 'dark' ? (
@@ -125,9 +125,16 @@ const ThemeLogoWrapper = styled.div`
   }
 `;
 
-const UserInfo = styled.div`
+const LogoutButton = styled(Button)`
   margin-right: 1rem;
   font-weight: 800;
+  font-size: 1.125rem;
+`;
+
+const LoginButton = styled(Link)`
+  margin-right: 1rem;
+  font-weight: 800;
+  font-size: 1.125rem;
 `;
 
 const Spacer = styled.div`

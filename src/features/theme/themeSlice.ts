@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { create } from 'domain';
+import storage from '../../lib/storage';
 
 export type ThemeState = {
   theme: 'dark' | 'light';
@@ -14,11 +15,11 @@ const themeSlice = createSlice({
   initialState: initialState,
   reducers: {
     enableDarkMode(state) {
-      localStorage.setItem('theme', 'dark');
+      storage.setItem('theme', 'dark');
       state.theme = 'dark';
     },
     enableLightMode(state) {
-      localStorage.setItem('theme', 'light');
+      storage.setItem('theme', 'light');
       state.theme = 'light';
     },
   },

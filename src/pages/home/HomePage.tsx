@@ -1,9 +1,9 @@
-import Header from '../../components/common/Header';
+import HeaderContainer from '../../container/common/HeaderContainer';
 
 const HomePage = () => {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <div>홈입니다.</div>
     </>
   );

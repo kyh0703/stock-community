@@ -9,16 +9,18 @@ import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { useEffect } from 'react';
-import { registerUser } from '../../features/auth/authSlice';
-import { RegisterUserRequest } from '../../features/auth/authAPI';
+import {
+  registerUser,
+  UserRegisterRequest,
+} from '../../features/users/usersAPI';
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
-    auth: auth.auth,
-    authError: auth.authError,
-    user: user.user,
+  const { userToken, authError, success } = useAppSelector(({ users }) => ({
+    userToken: users.userToken,
+    authError: users.error,
+    success: users.success,
   }));
 
   const validationSchema = Yup.object().shape({
@@ -35,7 +37,7 @@ const RegisterForm: React.FC = () => {
       .max(40, '패스워드는 최대 20자리 이하입니다'),
     passwordConfirm: Yup.string()
       .required('비밀번호 확인이 입력되지 않았습니다')
-      .oneOf([Yup.ref('password'), null], 'confirm password dose not match'),
+      .oneOf([Yup.ref('password'), null], '비밀번호가 일치 하지 않습니다'),
   });
 
   const {
@@ -43,12 +45,12 @@ const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterUserRequest>({
+  } = useForm<UserRegisterRequest>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = async (data: RegisterUserRequest) => {
-    const result = await dispatch(registerUser(data));
+  const onSubmit = async (data: UserRegisterRequest) => {
+    dispatch(registerUser(data));
   };
 
   useEffect(() => {
@@ -56,8 +58,12 @@ const RegisterForm: React.FC = () => {
       alert(`회원가입이 실패하였습니다\n${authError}`);
       return;
     }
-    // navigate('/'); // go home
-  }, [authError, auth]);
+    if (success) {
+      alert(`회원가입이 성공하였습니다`);
+      // TODO login 처리를 바로?
+      navigate('/login');
+    }
+  }, [authError, success]);
 
   const onCancel = () => {
     navigate('/');
@@ -152,7 +158,6 @@ const RegisterButton = styled(Button)`
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
-  // Link
   a {
     color: ${palette.gray6};
     text-decoration: underline;

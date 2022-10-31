@@ -9,16 +9,14 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { useEffect } from 'react';
-import { loginUser } from '../../features/auth/authSlice';
-import { LoginUserRequest } from '../../features/auth/authAPI';
+import { loginUser, UserLoginRequest } from '../../features/users/usersAPI';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { auth, authError, user } = useAppSelector(({ auth, user }) => ({
-    auth: auth.auth,
-    authError: auth.authError,
-    user: user.user,
+  const { authError, userInfo } = useAppSelector(({ users }) => ({
+    authError: users.error,
+    userInfo: users.userInfo,
   }));
 
   const validationSchema = Yup.object().shape({
@@ -36,10 +34,10 @@ const LoginForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginUserRequest>({
+  } = useForm<UserLoginRequest>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: LoginUserRequest) => {
+  const onSubmit = (data: UserLoginRequest) => {
     dispatch(loginUser(data));
   };
 
@@ -48,7 +46,11 @@ const LoginForm = () => {
       alert('로그인이 실패하였습니다');
       return;
     }
-  }, [authError, auth]);
+    if (userInfo) {
+      navigate('/');
+      return;
+    }
+  }, [authError, userInfo]);
 
   return (
     <LoginFormBlock>
@@ -110,7 +112,6 @@ const LoginButton = styled(Button)`
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
-  // Link
   a {
     color: ${palette.gray6};
     text-decoration: underline;

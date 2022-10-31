@@ -1,13 +1,12 @@
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
 import Header from '../../components/common/Header';
+import { UserInfo } from '../../features/users/usersSlice';
 
 const HeaderContainer = () => {
-  // const { user } = useAppSelector(({ user }) => user.user);
+  const user = useAppSelector(({ users }) => users.userInfo) as UserInfo;
   const dispatch = useAppDispatch();
   const onLogout = () => {};
-  return <Header onLogout={onLogout} />;
+  return <Header user={user} onLogout={onLogout} />;
 };
 
 export default HeaderContainer;
