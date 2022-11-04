@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import client from '../../lib/client';
 import storage from '../../lib/storage';
 
 const API_HOST = 'http://localhost:8000';
@@ -28,14 +29,9 @@ export const registerUser = createAsyncThunk<
   }
 >('users/register', async (fields, { rejectWithValue }) => {
   try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-    };
-
-    const response = await axios.post<UserRegisterResponse>(
+    const response = await client.post<UserRegisterResponse>(
       `${API_HOST}/api/users/register`,
       fields,
-      config,
     );
     return response.data;
   } catch (err) {
@@ -68,16 +64,10 @@ export const loginUser = createAsyncThunk<
   }
 >('users/login', async (fields, { rejectWithValue }) => {
   try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-    };
-
-    const response = await axios.post<UserLoginResponse>(
+    const response = await client.post<UserLoginResponse>(
       `${API_HOST}/api/users/login`,
       fields,
-      config,
     );
-
     const { accessToken, accessTokenExpire } = response.data;
     storage.setItem('userToken', {
       accessToken,
@@ -118,7 +108,7 @@ export const getUserDetails = createAsyncThunk<
       },
     };
 
-    const response = await axios.get<UserProfileResponse>(
+    const response = await client.get<UserProfileResponse>(
       `${API_HOST}/api/users/check`,
       config,
     );
@@ -135,17 +125,24 @@ export const getUserDetails = createAsyncThunk<
 
 export const logoutUser = createAsyncThunk<
   null,
-  null,
+  undefined,
   {
     rejectValue: ValidationErrors;
   }
->('users/logout', async (params, { rejectWithValue }) => {
+>('users/logout', async (fields, { rejectWithValue }) => {
   try {
+    const token = storage.getItem('userToken');
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`,
+      },
     };
-
-    const response = await axios.post(`${API_HOST}/api/users/logout`);
+    const response = await axios.post(
+      `${API_HOST}/api/users/logout`,
+      fields,
+      config,
+    );
+    storage.removeItem('userToken');
     return null;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;

@@ -17,7 +17,6 @@ interface HeaderProps {
 const Header = ({ user, onLogout }: HeaderProps) => {
   const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
-
   // on toggle theme button event
   const onToggleTheme = (e: React.MouseEvent<HTMLOrSVGElement>) => {
     if (theme === 'dark') {
@@ -39,11 +38,11 @@ const Header = ({ user, onLogout }: HeaderProps) => {
               <Item>
                 <Link to="/posts">게시글</Link>
               </Item>
-              <Item>
-                <Link to="/write">임시용 쓰기 페이지 접근</Link>
-              </Item>
               {user ? (
-                <Button onClick={onLogout}>로그아웃</Button>
+                <>
+                  <StyleUserName>{user.username}</StyleUserName>
+                  <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
+                </>
               ) : (
                 <LoginButton to="/login">로그인</LoginButton>
               )}
@@ -125,15 +124,18 @@ const ThemeLogoWrapper = styled.div`
   }
 `;
 
-const LogoutButton = styled(Button)`
+const StyleUserName = styled.div`
   margin-right: 1rem;
   font-weight: 800;
+`;
+
+const LogoutButton = styled(Button)`
+  margin-right: 1rem;
   font-size: 1.125rem;
 `;
 
 const LoginButton = styled(Link)`
   margin-right: 1rem;
-  font-weight: 800;
   font-size: 1.125rem;
 `;
 

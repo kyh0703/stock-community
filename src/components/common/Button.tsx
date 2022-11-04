@@ -1,8 +1,6 @@
-import { prototype } from 'events';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { buttonColorMap } from '../../lib/styles/palette';
-import theme from '../../themes/light';
 
 type ColorType = 'teal' | 'gray' | 'blue' | 'red' | 'cyan';
 type ButtonSize = 'medium' | 'large';

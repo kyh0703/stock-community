@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Post } from '../../types/post';
+import { Post } from '../../features/posts/postsSlice';
 
 const PostItem = (post: Post) => {
   const { id, title, body, tags, publish_at } = post;
   return (
     <PostItemBlock>
       <h2>
-        <Link to={`/@asdfadsf/${id}`}>{title}</Link>
+        <Link to={`/@test/${id}`}>{title}</Link>
       </h2>
       <p>{body}</p>
     </PostItemBlock>

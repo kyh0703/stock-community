@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Post } from '../../types/post';
+import { Post } from '../posts/postsSlice';
 
 const API_HOST = 'http://localhost:8000';
 

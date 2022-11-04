@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { FaMeteor } from 'react-icons/fa';
 import storage from '../../lib/storage';
 import {
   getUserDetails,
@@ -63,7 +64,11 @@ const usersSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, { payload: auth }) => {
       state.loading = false;
-      state.userInfo = auth;
+      state.userInfo = {
+        id: auth.id,
+        email: auth.email,
+        username: auth.username,
+      };
       state.userToken = {
         token: auth.accessToken,
         expire: auth.accessTokenExpire,
@@ -93,8 +98,17 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
-    builder.addCase(logoutUser.fulfilled, (state, action) => {});
+    builder.addCase(logoutUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.loading = false;
+      state.userInfo = null;
+      state.userToken = null;
+    });
     builder.addCase(logoutUser.rejected, (state, action) => {
+      state.loading = false;
       if (action.payload) {
         state.error = action.payload.message;
       } else {

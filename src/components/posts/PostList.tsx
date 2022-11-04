@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Post } from '../../types/post';
+import { Post } from '../../features/posts/postsSlice';
 import Responsive from '../common/Responsive';
 
 interface PostListProps {
@@ -11,6 +11,9 @@ interface PostListProps {
 const PostList = ({ posts, loading, error }: PostListProps) => {
   if (error) {
     return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
+  }
+  if (!posts) {
+    return null;
   }
   return (
     <PostListBlock>

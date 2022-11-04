@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import themeProducer from '../features/theme/themeSlice';
-import postsReducer from '../features/posts/PostsSlice';
+import postsReducer from '../features/posts/postsSlice';
 import usersReducer from '../features/users/usersSlice';
 
 // configure

@@ -6,7 +6,7 @@ const lightTheme: DefaultTheme = {
   LogoColor: 'red',
   headerColor: palette.gray6,
   headerHoverColor: 'black',
-  headerBackgroundColor: palette.teal0,
+  headerBackgroundColor: 'white',
   bodyColor: 'black',
   bodyBackgroundColor: 'white',
   bodyContentColor: 'black',

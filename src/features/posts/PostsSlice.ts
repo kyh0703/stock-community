@@ -1,14 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { write } from 'fs';
-import { Post } from '../../types/post';
 import { createPostById } from './postsAPI';
-import { create } from 'domain';
 import {
   fetchPostById,
   fetchPosts,
   updatePostById,
   removePostById,
 } from './postsAPI';
+
+export interface Post {
+  id?: number;
+  title: string;
+  body: string;
+  tags: string[];
+  publish_at?: Date;
+}
 
 interface PostsState {
   write: {
@@ -83,7 +88,7 @@ const postsSlice = createSlice({
     });
     builder.addCase(fetchPosts.fulfilled, (state, { payload: posts }) => {
       state.list.loading = false;
-      state.list.data = posts;
+      state.list.data = posts.posts;
       state.list.error = null;
     });
     builder.addCase(fetchPosts.rejected, (state, { payload: error }) => {

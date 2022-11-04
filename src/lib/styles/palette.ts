@@ -54,6 +54,22 @@ const palette = {
   blue7: '#1C7ED6',
   blue8: '#1971C2',
   blue9: '#1864AB',
+  /* orange */
+  orange0: '#FFF4E6',
+  orange1: '#FFE8CC',
+  orange2: '#FFD8A8',
+  orange3: '#FFC078',
+  orange4: '#FFA94D',
+  orange5: '#FF922B',
+  orange6: '#FD7E14',
+  orange7: '#F76707',
+  orange8: '#E8590C',
+  orange9: '#D9408F',
+  /* night owl */
+  owl0: '#102A44',
+  owl1: '#001122',
+  owl2: '#8BADC1',
+  owl3: '#000C1D',
 };
 
 export const buttonColorMap: {
