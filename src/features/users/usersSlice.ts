@@ -8,7 +8,7 @@ import {
   registerUser,
 } from './usersAPI';
 
-const userToken = storage.getItem('userToken')
+const userAuth = storage.getItem('userToken')
   ? storage.getItem('userToken')
   : null;
 
@@ -21,7 +21,7 @@ export interface UserInfo {
 interface UsersState {
   loading: boolean;
   userInfo: UserInfo | null;
-  userToken: {
+  userAuth: {
     token: string;
     expire: number;
   } | null;
@@ -32,7 +32,7 @@ interface UsersState {
 const initialState = {
   loading: false,
   userInfo: null,
-  userToken: userToken,
+  userAuth: userAuth,
   error: null,
   success: false,
 } as UsersState;
@@ -69,7 +69,7 @@ const usersSlice = createSlice({
         email: auth.email,
         username: auth.username,
       };
-      state.userToken = {
+      state.userAuth = {
         token: auth.accessToken,
         expire: auth.accessTokenExpire,
       };
@@ -105,7 +105,7 @@ const usersSlice = createSlice({
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.loading = false;
       state.userInfo = null;
-      state.userToken = null;
+      state.userAuth = null;
     });
     builder.addCase(logoutUser.rejected, (state, action) => {
       state.loading = false;

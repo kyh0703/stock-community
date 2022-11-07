@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../../lib/client';
-import { Post } from './postsSlice';
+import { Post } from './postSlice';
 
 const API_HOST = 'http://localhost:8000';
 
@@ -11,18 +11,22 @@ export interface PostListRequest {
 }
 
 export interface PostListResponse {
-  lastPage: number;
-  posts: Post[];
+  posts: Post[] | null;
+  lastPage?: number;
 }
 
 export const fetchPosts = createAsyncThunk<PostListResponse, PostListRequest>(
   'posts/fetch',
   async (fields) => {
     try {
-      const response = await client.get(`${API_HOST}/api/posts`, {
+      const response = await client.get<Post[]>(`/api/posts`, {
         params: { fields },
       });
-      return await response.data;
+      const listResponse: PostListResponse = {
+        posts: response.data,
+        lastPage: Number(response.headers['last-page']),
+      };
+      return listResponse;
     } catch (err) {
       throw err;
     }
@@ -32,8 +36,8 @@ export const fetchPosts = createAsyncThunk<PostListResponse, PostListRequest>(
 export const fetchPostById = createAsyncThunk(
   'posts/fetchById',
   async (userId: number) => {
-    const response = await client.get(`${API_HOST}/api/posts/${userId}`);
-    return await response.data;
+    const response = await client.get(`/api/posts/${userId}`);
+    return response.data;
   },
 );
 
@@ -46,10 +50,10 @@ interface CreatePostParams {
 export const createPostById = createAsyncThunk(
   'posts/create',
   async (params: CreatePostParams) => {
-    const response = await client.post(`${API_HOST}/api/posts/write`, {
+    const response = await client.post(`/api/posts/write`, {
       params,
     });
-    return await response.data;
+    return response.data;
   },
 );
 
@@ -63,19 +67,19 @@ interface UpdatePostParams {
 export const updatePostById = createAsyncThunk(
   'posts/updateById',
   async ({ id, title, body, tags }: UpdatePostParams) => {
-    const response = await client.put(`${API_HOST}/api/posts/${id}`, {
+    const response = await client.put(`/api/posts/${id}`, {
       title,
       body,
       tags,
     });
-    return await response.data;
+    return response.data;
   },
 );
 
 export const removePostById = createAsyncThunk(
   'posts/removeById',
   async (userId: number) => {
-    const response = await client.delete(`${API_HOST}/api/posts/${userId}`);
-    return await response.data.json();
+    const response = await client.delete(`/api/posts/${userId}`);
+    return response.data.json();
   },
 );

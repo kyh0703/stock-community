@@ -8,11 +8,12 @@ import {
 } from './postsAPI';
 
 export interface Post {
-  id?: number;
+  id: number;
   title: string;
   body: string;
   tags: string[];
-  publish_at?: Date;
+  publishAt: Date;
+  edges?: object;
 }
 
 interface PostsState {
@@ -24,8 +25,8 @@ interface PostsState {
   list: {
     loading: boolean;
     error?: string | null;
-    data: Post[] | null;
-    lastPage: number;
+    posts: Post[] | null;
+    lastPage?: number;
   };
   post: Post | null;
   postError?: string | null;
@@ -40,7 +41,7 @@ const initialState: PostsState = {
   list: {
     loading: false,
     error: null,
-    data: null,
+    posts: null,
     lastPage: 1,
   },
   post: null,
@@ -87,8 +88,10 @@ const postsSlice = createSlice({
       state.list.error = null;
     });
     builder.addCase(fetchPosts.fulfilled, (state, { payload: posts }) => {
+      console.log('postSlice' + posts);
       state.list.loading = false;
-      state.list.data = posts.posts;
+      state.list.posts = posts.posts;
+      state.list.lastPage = posts.lastPage;
       state.list.error = null;
     });
     builder.addCase(fetchPosts.rejected, (state, { payload: error }) => {

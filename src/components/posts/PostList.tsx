@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { Post } from '../../features/posts/postsSlice';
+import { Post } from '../../features/posts/postSlice';
 import Responsive from '../common/Responsive';
+import PostItem from './PostItem';
 
 interface PostListProps {
   posts: Post[] | null;
@@ -12,16 +13,13 @@ const PostList = ({ posts, loading, error }: PostListProps) => {
   if (error) {
     return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
   }
-  if (!posts) {
-    return null;
-  }
   return (
     <PostListBlock>
       <WritePostButtonWrapper></WritePostButtonWrapper>
       {!loading && posts && (
         <div>
           {posts.map((post) => (
-            <li>{post.body}</li>
+            <PostItem post={post} key={post.id} />
           ))}
         </div>
       )}

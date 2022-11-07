@@ -30,7 +30,7 @@ export const registerUser = createAsyncThunk<
 >('users/register', async (fields, { rejectWithValue }) => {
   try {
     const response = await client.post<UserRegisterResponse>(
-      `${API_HOST}/api/users/register`,
+      `/api/users/register`,
       fields,
     );
     return response.data;
@@ -65,7 +65,7 @@ export const loginUser = createAsyncThunk<
 >('users/login', async (fields, { rejectWithValue }) => {
   try {
     const response = await client.post<UserLoginResponse>(
-      `${API_HOST}/api/users/login`,
+      `/api/users/login`,
       fields,
     );
     const { accessToken, accessTokenExpire } = response.data;
@@ -109,7 +109,7 @@ export const getUserDetails = createAsyncThunk<
     };
 
     const response = await client.get<UserProfileResponse>(
-      `${API_HOST}/api/users/check`,
+      `/api/users/check`,
       config,
     );
 
@@ -137,11 +137,7 @@ export const logoutUser = createAsyncThunk<
         Authorization: `Bearer ${token.accessToken}`,
       },
     };
-    const response = await axios.post(
-      `${API_HOST}/api/users/logout`,
-      fields,
-      config,
-    );
+    const response = await axios.post(`/api/users/logout`, fields, config);
     storage.removeItem('userToken');
     return null;
   } catch (err) {

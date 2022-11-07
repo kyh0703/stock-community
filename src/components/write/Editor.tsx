@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import ReactQuill from 'react-quill';
-import { InputPayload } from '../../features/posts/postsSlice';
+import { InputPayload } from '../../features/posts/postSlice';
 import 'react-quill/dist/quill.snow.css';
 
 interface EditorProps {

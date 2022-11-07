@@ -1,7 +1,7 @@
 import Editor from '../../components/write/Editor';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useEffect, useCallback } from 'react';
-import { postsAction, InputPayload } from '../../features/posts/postsSlice';
+import { postsAction, InputPayload } from '../../features/posts/postSlice';
 
 const EditorContainer = () => {
   const dispatch = useAppDispatch();

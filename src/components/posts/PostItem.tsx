@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Post } from '../../features/posts/postsSlice';
+import { Post } from '../../features/posts/postSlice';
+import palette from '../../lib/styles/palette';
 
-const PostItem = (post: Post) => {
-  const { id, title, body, tags, publish_at } = post;
+interface PostItemProps {
+  post: Post;
+}
+
+const PostItem = ({ post }: PostItemProps) => {
+  const { id, title, body } = post;
   return (
     <PostItemBlock>
       <h2>
@@ -22,7 +27,7 @@ const PostItemBlock = styled.div`
     padding-top: 0;
   }
   & + & {
-    border-top: 1px solid blue;
+    border-top: 1px solid ${palette.owl4};
   }
   h2 {
     font-size: 2rem;

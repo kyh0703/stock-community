@@ -18,7 +18,7 @@ const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userToken, authError, success } = useAppSelector(({ users }) => ({
-    userToken: users.userToken,
+    userToken: users.userAuth?.token,
     authError: users.error,
     success: users.success,
   }));
