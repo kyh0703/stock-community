@@ -9,8 +9,8 @@ const PostListContainer = () => {
   const [searchParams] = useSearchParams();
   const { posts, loading, error } = useAppSelector(({ posts }) => ({
     posts: posts.list.posts,
-    loading: posts.list.loading,
-    error: posts.list.error,
+    loading: posts.loading,
+    error: posts.error,
   }));
   const dispatch = useAppDispatch();
 

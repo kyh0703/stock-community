@@ -14,7 +14,7 @@ const WriteActionButtonContainer = () => {
       body: posts.write.body,
       tags: posts.write.tags,
       post: posts.post,
-      postError: posts.postError,
+      postError: posts.error,
     }),
   );
 

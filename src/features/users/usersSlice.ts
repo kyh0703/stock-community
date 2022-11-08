@@ -20,21 +20,21 @@ export interface UserInfo {
 
 interface UsersState {
   loading: boolean;
+  error: string | null | undefined;
+  success: boolean;
   userInfo: UserInfo | null;
   userAuth: {
     token: string;
     expire: number;
   } | null;
-  error: string | null | undefined;
-  success: boolean;
 }
 
 const initialState = {
   loading: false,
-  userInfo: null,
-  userAuth: userAuth,
   error: null,
   success: false,
+  userInfo: null,
+  userAuth: userAuth,
 } as UsersState;
 
 const usersSlice = createSlice({

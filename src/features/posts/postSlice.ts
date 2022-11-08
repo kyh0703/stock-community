@@ -17,36 +17,36 @@ export interface Post {
 }
 
 interface PostsState {
+  loading: boolean;
+  error: string | null | undefined;
+  success: boolean;
   write: {
     title: string;
     body: string;
     tags?: string[];
   };
   list: {
-    loading: boolean;
-    error?: string | null;
     posts: Post[] | null;
     lastPage?: number;
   };
   post: Post | null;
-  postError?: string | null;
 }
 
 const initialState: PostsState = {
+  loading: false,
+  error: null,
+  success: false,
   write: {
     title: '',
     body: '',
     tags: [],
   },
   list: {
-    loading: false,
-    error: null,
     posts: null,
     lastPage: 1,
   },
   post: null,
-  postError: null,
-};
+} as PostsState;
 
 export interface InputPayload {
   key: 'body' | 'title';
@@ -74,50 +74,72 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createPostById.pending, (state) => {
-      state.post = null;
-      state.postError = null;
+      state.loading = true;
+      state.success = false;
+      state.error = null;
     });
     builder.addCase(createPostById.fulfilled, (state, { payload: post }) => {
+      state.loading = false;
+      state.success = true;
       state.post = post;
     });
     builder.addCase(createPostById.rejected, (state, { error }) => {
-      state.postError = error.message;
+      state.loading = false;
+      state.error = error.message;
     });
     builder.addCase(fetchPosts.pending, (state) => {
-      state.list.loading = true;
-      state.list.error = null;
+      state.loading = true;
+      state.error = null;
     });
     builder.addCase(fetchPosts.fulfilled, (state, { payload: posts }) => {
-      console.log('postSlice' + posts);
-      state.list.loading = false;
+      state.loading = false;
       state.list.posts = posts.posts;
       state.list.lastPage = posts.lastPage;
-      state.list.error = null;
+      state.error = null;
     });
     builder.addCase(fetchPosts.rejected, (state, { payload: error }) => {
-      state.list.loading = false;
-      state.list.error = null;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(fetchPostById.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
     });
     builder.addCase(fetchPostById.fulfilled, (state, { payload: post }) => {
+      state.loading = false;
       state.post = post;
-      state.postError = null;
     });
-    builder.addCase(fetchPostById.rejected, (state, { error }) => {
-      state.postError = error.message;
+    builder.addCase(fetchPostById.rejected, (state, action) => {
+      state.loading = false;
+      state.success = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(updatePostById.pending, (state, action) => {
+      state.loading = true;
+      state.success = false;
+      state.error = null;
     });
     builder.addCase(updatePostById.fulfilled, (state, { payload: post }) => {
+      state.loading = false;
+      state.success = true;
       state.post = post;
-      state.postError = '';
+      state.error = '';
     });
     builder.addCase(updatePostById.rejected, (state, { error }) => {
-      state.postError = error.message;
+      state.loading = false;
+      state.error = error.message;
+    });
+    builder.addCase(removePostById.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
     });
     builder.addCase(removePostById.fulfilled, (state, { payload: post }) => {
+      state.loading = false
       state.post = null;
-      state.postError = '';
+      state.error = null;
     });
     builder.addCase(removePostById.rejected, (state, { error }) => {
-      state.postError = error.message;
+      state.error = error.message;
     });
   },
 });
