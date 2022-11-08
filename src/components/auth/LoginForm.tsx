@@ -81,7 +81,7 @@ const LoginForm = () => {
         <LoginButton color="blue">로그인</LoginButton>
       </form>
       <Footer>
-        <Link to="/register">회원가입</Link>
+        <Button to="/register">회원가입</Button>
       </Footer>
     </LoginFormBlock>
   );
