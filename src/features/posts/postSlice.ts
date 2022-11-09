@@ -27,7 +27,7 @@ interface PostsState {
   };
   list: {
     posts: Post[] | null;
-    lastPage?: number;
+    lastPage: number;
   };
   post: Post | null;
 }
@@ -134,7 +134,7 @@ const postsSlice = createSlice({
       state.error = null;
     });
     builder.addCase(removePostById.fulfilled, (state, { payload: post }) => {
-      state.loading = false
+      state.loading = false;
       state.post = null;
       state.error = null;
     });

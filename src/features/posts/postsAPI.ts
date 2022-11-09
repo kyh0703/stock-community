@@ -12,7 +12,7 @@ export interface PostListRequest {
 
 export interface PostListResponse {
   posts: Post[] | null;
-  lastPage?: number;
+  lastPage: number;
 }
 
 export const fetchPosts = createAsyncThunk<PostListResponse, PostListRequest>(
