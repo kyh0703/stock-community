@@ -10,6 +10,7 @@ const palette = {
   teal7: '#0ca678',
   teal8: '#099268',
   teal9: '#087f5b',
+
   /* gray */
   gray0: '#f8f9fa',
   gray1: '#f1f3f5',
@@ -21,6 +22,7 @@ const palette = {
   gray7: '#495057',
   gray8: '#343a40',
   gray9: '#212529',
+
   /* red */
   red0: '#fff5f5',
   red1: '#ffe3e3',
@@ -32,6 +34,7 @@ const palette = {
   red7: '#f03e3e',
   red8: '#e03131',
   red9: '#c92A2a',
+
   /* cyan */
   cyan0: '#e3fafc',
   cyan1: '#c5f6fa',
@@ -43,6 +46,7 @@ const palette = {
   cyan7: '#1098ad',
   cyan8: '#0c8599',
   cyan9: '#0b7285',
+
   /* blue */
   blue0: '#e7f5ff',
   blue1: '#d0ebff',
@@ -54,6 +58,7 @@ const palette = {
   blue7: '#1c7ed6',
   blue8: '#1971C2',
   blue9: '#1864ab',
+
   /* orange */
   orange0: '#fff4e6',
   orange1: '#ffe8cc',
@@ -65,12 +70,54 @@ const palette = {
   orange7: '#f76707',
   orange8: '#e8590c',
   orange9: '#d9408f',
+
+  /* violet */
+  violet0: '#f3f0ff',
+  violet1: '#e5dbff',
+  violet2: '#d0bfff',
+  violet3: '#b197fc',
+  violet4: '#9775fa',
+  violet5: '#835ef7',
+  violet6: '#7950f2',
+  violet7: '#7048e8',
+  violet8: '#6741d9',
+  violet9: '#5f3dc4',
+
+  /* indigo */
+  indigo0: '#edf2ff',
+  indigo1: '#dbe4ff',
+  indigo2: '#bac8ff',
+  indigo3: '#91a7ff',
+  indigo4: '#748ffc',
+  indigo5: '#5c7cfa',
+  indigo6: '#4c6ef5',
+  indigo7: '#4263eb',
+  indigo8: '#3b5bdb',
+  indigo9: '#364fc7',
+
   /* night owl */
-  owl0: '#102a44',
-  owl1: '#001122',
-  owl2: '#8badc1',
-  owl3: '#000c1d',
-  owl4: '#ffCB8b',
+  owlBackground: '#011627',
+  owlForeground: '#d6deeb',
+  owlActiveBarBackground: '#000c1d',
+  owlActiveBarBorder: '#102a44',
+  owlSideBarBackground: '#001122',
+  owlSideBarBorder: '#102a44',
+  owlCurrentLine: '#01111d',
+  owlSelection: '#1d3b53',
+  owlCursor: '#80a4c2',
+  owlLineNumber: '#4b6479',
+  owlCurrentLineNumber: '#c5e4fd',
+  owlTags: '#7fdbca',
+  owlComment: '#637777',
+  owlRed: '#ef5350',
+  owlGreen: '#22da6e',
+  owlYellow: '#addb67',
+  owlBlue: '#82aaff',
+  owlOrange: '#f78c6c',
+  owlMagenta: '#c792ea',
+  owlCyan: '#21c7a8',
+  owlWhite: '#ffffff',
+  owlBrightBlack: '#575656',
 };
 
 export const buttonColorMap: {
@@ -95,15 +142,30 @@ export const buttonColorMap: {
     color: 'white',
     hoverBackground: palette.red8,
   },
+  cyan: {
+    background: palette.cyan3,
+    color: 'white',
+    hoverBackground: palette.cyan8,
+  },
   blue: {
     background: palette.blue3,
     color: 'white',
     hoverBackground: palette.blue8,
   },
-  cyan: {
-    background: palette.cyan3,
+  orange: {
+    background: palette.orange3,
     color: 'white',
-    hoverBackground: palette.cyan8,
+    hoverBackground: palette.orange8,
+  },
+  violet: {
+    background: palette.violet3,
+    color: 'white',
+    hoverBackground: palette.violet8,
+  },
+  indigo: {
+    background: palette.indigo3,
+    color: 'white',
+    hoverBackground: palette.indigo8,
   },
 };
 

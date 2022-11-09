@@ -27,7 +27,7 @@ const PostItemBlock = styled.div`
     padding-top: 0;
   }
   & + & {
-    border-top: 1px solid ${palette.owl4};
+    border-top: 1px solid ${palette.owlRed};
   }
   h2 {
     font-size: 2rem;

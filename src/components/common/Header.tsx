@@ -41,10 +41,10 @@ const Header = ({ user, onLogout }: HeaderProps) => {
               {user ? (
                 <>
                   <StyleUserName>{user.username}</StyleUserName>
-                  <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
+                  <AuthButton onClick={onLogout}>로그아웃</AuthButton>
                 </>
               ) : (
-                <LoginButton to="/login">로그인</LoginButton>
+                <AuthButton to="/login">로그인</AuthButton>
               )}
               <Item>
                 <ThemeLogoWrapper>
@@ -129,12 +129,7 @@ const StyleUserName = styled.div`
   font-weight: 800;
 `;
 
-const LogoutButton = styled(Button)`
-  margin-right: 1rem;
-  font-size: 1.125rem;
-`;
-
-const LoginButton = styled(Link)`
+const AuthButton = styled(Button)`
   margin-right: 1rem;
   font-size: 1.125rem;
 `;

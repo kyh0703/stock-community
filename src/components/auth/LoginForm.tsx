@@ -78,10 +78,14 @@ const LoginForm = () => {
         {errors?.password && (
           <ErrorMessage>{errors.password.message}</ErrorMessage>
         )}
-        <LoginButton color="blue">로그인</LoginButton>
+        <LoginButton size="large-full" color="blue">
+          로그인
+        </LoginButton>
       </form>
       <Footer>
-        <Button to="/register">회원가입</Button>
+        <TinyLink to="/">아이디/비밀번호 찾기</TinyLink>
+        <span>|</span>
+        <TinyLink to="/register">회원가입</TinyLink>
       </Footer>
     </LoginFormBlock>
   );
@@ -110,14 +114,27 @@ const LoginButton = styled(Button)`
 `;
 
 const Footer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
   margin-top: 2rem;
-  text-align: right;
   a {
     color: ${palette.gray6};
     text-decoration: underline;
     &:hover {
       color: ${palette.gray9};
     }
+  }
+`;
+
+const TinyLink = styled(Link)`
+  font-size: 0.95rem;
+  text-decoration: none;
+  &:hover,
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
   }
 `;
 

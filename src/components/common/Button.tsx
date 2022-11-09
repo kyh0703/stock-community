@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import palette, { buttonColorMap } from '../../lib/styles/palette';
 
-type ColorType = 'teal' | 'gray' | 'blue' | 'red' | 'cyan';
-type ButtonSize = 'medium' | 'large';
+type ColorType =
+  | 'teal'
+  | 'gray'
+  | 'red'
+  | 'cyan'
+  | 'blue'
+  | 'orange'
+  | 'violet'
+  | 'indigo';
+
+type ButtonSize = 'small' | 'medium' | 'large' | 'large-full';
 
 interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   to?: string;
@@ -79,6 +88,15 @@ const buttonStyle = css<{
   }
 
   ${(props) =>
+    props.size === 'small' &&
+    css`
+      height: 1.5rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      font-size: 1rem;
+    `}
+
+  ${(props) =>
     props.size === 'medium' &&
     css`
       height: 2rem;
@@ -100,6 +118,19 @@ const buttonStyle = css<{
     `}
 
   ${(props) =>
+    props.size === 'large-full' &&
+    css`
+      height: 2.5rem;
+      padding-left: 1.125rem;
+      padding-right: 1.125rem;
+      & + & {
+        margin-left: 0.875rem;
+      }
+      font-size: 1.125rem;
+      width: 100%;
+    `}
+
+  ${(props) =>
     props.disabled &&
     css`
       background: ${palette.gray3};
@@ -114,6 +145,13 @@ const StyledButton = styled.button`
 
 const StyledNav = styled(Link)`
   text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
   ${buttonStyle};
 `;
 
