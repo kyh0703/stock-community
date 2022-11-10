@@ -44,7 +44,9 @@ const Header = ({ user, onLogout }: HeaderProps) => {
                   <AuthButton onClick={onLogout}>로그아웃</AuthButton>
                 </>
               ) : (
-                <AuthButton to="/login">로그인</AuthButton>
+                <AuthButton to="/login" color="violet">
+                  로그인
+                </AuthButton>
               )}
               <Item>
                 <ThemeLogoWrapper>

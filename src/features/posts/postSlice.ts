@@ -61,6 +61,9 @@ const postsSlice = createSlice({
       state.write.title = '';
       state.write.body = '';
     },
+    initPostField: (state) => {
+      state.post = null;
+    },
     changeWriteField: (
       state,
       { payload: { key, value } }: PayloadAction<InputPayload>,

@@ -35,8 +35,8 @@ export const fetchPosts = createAsyncThunk<PostListResponse, PostListRequest>(
 
 export const fetchPostById = createAsyncThunk(
   'posts/fetchById',
-  async (userId: number) => {
-    const response = await client.get(`/api/posts/${userId}`);
+  async (postId: number) => {
+    const response = await client.get(`/api/posts/${postId}`);
     return response.data;
   },
 );
