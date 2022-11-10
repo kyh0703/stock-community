@@ -15,7 +15,7 @@ const PaginationContainer = () => {
   }));
 
   if (!posts || loading) return null;
-  return <Pagination tag={tag + ''} page={page} lastPage={lastPage} />;
+  return <Pagination tag={tag + ''} page={page} totalPage={lastPage} />;
 };
 
 export default PaginationContainer;
