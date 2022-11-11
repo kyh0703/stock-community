@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { Post } from '../../features/posts/postSlice';
 import palette from '../../lib/styles/palette';
 
-interface PostItemProps {
+interface Props {
   post: Post;
 }
 
-const PostItem = ({ post }: PostItemProps) => {
+const PostItem = ({ post }: Props) => {
   const { id, title, body } = post;
   return (
     <PostItemBlock>

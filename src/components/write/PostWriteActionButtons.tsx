@@ -2,15 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
 
-interface WriteActionButtonsProps {
+interface Props {
   onPublish: () => void;
   onCancel: () => void;
 }
 
-const WriteActionButtons = ({
-  onPublish,
-  onCancel,
-}: WriteActionButtonsProps) => {
+const WriteActionButtons = ({ onPublish, onCancel }: Props) => {
   return (
     <WriteActionButtonsBlock>
       <Button onClick={onPublish}>포스트</Button>

@@ -5,13 +5,13 @@ import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
 import Tags from '../common/Tags';
 
-interface PostDetailProps {
+interface Props {
   post: Post | null;
   error: string | null | undefined;
   loading: boolean;
 }
 
-const PostDetail = ({ post, error, loading }: PostDetailProps) => {
+const PostDetail = ({ post, error, loading }: Props) => {
   if (error) {
   }
 

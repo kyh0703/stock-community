@@ -5,30 +5,14 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 
-interface PaginationProps {
+interface Props {
   page: number;
   totalPage: number;
   limit?: number;
   tag: string;
 }
 
-const range = (start: number, end: number) => {
-  const isReverse = start > end;
-  const targetLength = isReverse ? start - end + 1 : end - start + 1;
-  const arr = new Array(targetLength);
-  const b = Array.apply(null, arr);
-  const result = b.map((discard, n) => {
-    return isReverse ? n + end : n + start;
-  });
-  return isReverse ? result.reverse() : result;
-};
-
-const buildLink = (username: string, tag: string, page: number) => {
-  const query = qs.stringify({ tag, page });
-  return username ? `/@${username}?${query}` : `/?${query}`;
-};
-
-const Pagination = ({ page, totalPage, limit = 10, tag }: PaginationProps) => {
+const Pagination = ({ page, totalPage, limit = 10, tag }: Props) => {
   // NOTE (pagination example)
   // current_page = 1
   // view_page_limit = 20
@@ -74,6 +58,21 @@ const Pagination = ({ page, totalPage, limit = 10, tag }: PaginationProps) => {
   );
 };
 
+const range = (start: number, end: number) => {
+  const isReverse = start > end;
+  const targetLength = isReverse ? start - end + 1 : end - start + 1;
+  const arr = new Array(targetLength);
+  const b = Array.apply(null, arr);
+  const result = b.map((discard, n) => {
+    return isReverse ? n + end : n + start;
+  });
+  return isReverse ? result.reverse() : result;
+};
+
+const buildLink = (username: string, tag: string, page: number) => {
+  const query = qs.stringify({ tag, page });
+  return username ? `/@${username}?${query}` : `/?${query}`;
+};
 const PaginationBlock = styled.div`
   width: 320px;
   margin: 0 auto;

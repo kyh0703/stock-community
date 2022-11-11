@@ -4,14 +4,13 @@ import styled, { css } from 'styled-components';
 import '../../lib/styles/palette';
 import palette from '../../lib/styles/palette';
 
-interface InputProps
-  extends React.PropsWithRef<JSX.IntrinsicElements['input']> {
+interface Props extends React.PropsWithRef<JSX.IntrinsicElements['input']> {
   id: string;
   label?: string | ReactElement;
   flex?: boolean;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, Props>(
   ({ id, label, flex = false, ...rest }, ref) => {
     return (
       <InputWrap flex={flex}>

@@ -3,13 +3,13 @@ import { Post } from '../../features/posts/postSlice';
 import Responsive from '../common/Responsive';
 import PostItem from './PostItem';
 
-interface PostListProps {
+interface Props {
   posts: Post[] | null;
   loading: boolean;
   error?: string | null;
 }
 
-const PostList = ({ posts, loading, error }: PostListProps) => {
+const PostList = ({ posts, loading, error }: Props) => {
   if (error) {
     return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
   }

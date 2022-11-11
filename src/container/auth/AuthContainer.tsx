@@ -3,11 +3,11 @@ import RegisterForm from '../../components/auth/RegisterForm';
 import LoginForm from '../../components/auth/LoginForm';
 import AuthTemplate from '../../components/auth/AuthTemplate';
 
-interface AuthContainerProps {
+interface Props {
   authType: 'login' | 'register';
 }
 
-const AuthContainer = ({ authType }: AuthContainerProps) => {
+const AuthContainer = ({ authType }: Props) => {
   return (
     <AuthTemplate>
       {authType === 'login' ? <LoginForm /> : <RegisterForm />}

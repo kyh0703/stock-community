@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-export type NotFoundErrorProps = {};
+export type Props = {};
 
-const NotFoundError = (props: NotFoundErrorProps) => {
+const NotFoundError = (props: Props) => {
   return <div></div>;
 };
 

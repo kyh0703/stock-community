@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Responsive: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  children,
+  ...rest
+}) => {
+  return <ResponsiveBlock {...rest}>{children}</ResponsiveBlock>;
+};
+
 const ResponsiveBlock = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
@@ -14,12 +21,5 @@ const ResponsiveBlock = styled.div`
     width: 100%;
   }
 `;
-
-const Responsive: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
-  children,
-  ...rest
-}) => {
-  return <ResponsiveBlock {...rest}>{children}</ResponsiveBlock>;
-};
 
 export default Responsive;
