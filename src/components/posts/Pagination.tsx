@@ -5,14 +5,14 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 
-interface Props {
+interface PaginationProps {
   page: number;
   totalPage: number;
   limit?: number;
   tag: string;
 }
 
-const Pagination = ({ page, totalPage, limit = 10, tag }: Props) => {
+const Pagination = ({ page, totalPage, limit = 10, tag }: PaginationProps) => {
   // NOTE (pagination example)
   // current_page = 1
   // view_page_limit = 20
@@ -34,27 +34,61 @@ const Pagination = ({ page, totalPage, limit = 10, tag }: Props) => {
   const pageNumberArr = range(firstPage, lastPage);
 
   return (
-    <PaginationBlock>
-      <Button
-        disabled={page === 1}
-        color="indigo"
-        to={page === 1 ? undefined : buildLink('test', tag, page - 1)}
-      >
-        이전
-      </Button>
-      {pageNumberArr.map((num) => (
-        <PageNumber isActive={num === page} to={buildLink('test', tag, num)}>
-          {num}
-        </PageNumber>
-      ))}
-      <Button
-        disabled={page === lastPage}
-        color="indigo"
-        to={page === lastPage ? undefined : buildLink('test', tag, page + 1)}
-      >
-        다음
-      </Button>
-    </PaginationBlock>
+    <>
+      <PaginationBlock>
+        <Button
+          disabled={page === 1}
+          color="indigo"
+          to={page === 1 ? undefined : buildLink('test', tag, page - 1)}
+        >
+          이전
+        </Button>
+        {pageNumberArr && (
+          <div>
+            {pageNumberArr.map((num) => (
+              <PageNumberItem
+                curPage={page}
+                page={num}
+                tag={tag}
+                username={'test'}
+              />
+            ))}
+          </div>
+        )}
+        <Button
+          disabled={page === lastPage}
+          color="indigo"
+          to={page === lastPage ? undefined : buildLink('test', tag, page + 1)}
+        >
+          다음
+        </Button>
+      </PaginationBlock>
+    </>
+  );
+};
+
+interface PageNumberItemProps {
+  curPage: number;
+  page: number;
+  tag: string;
+  username: string;
+}
+
+const PageNumberItem = ({
+  curPage,
+  page,
+  tag,
+  username,
+}: PageNumberItemProps) => {
+  const isActive = curPage === page;
+  return (
+    <PageNumber
+      key={page}
+      to={buildLink(username, tag, page)}
+      className={isActive ? 'active' : 'inactive'}
+    >
+      {page}
+    </PageNumber>
   );
 };
 
@@ -73,6 +107,7 @@ const buildLink = (username: string, tag: string, page: number) => {
   const query = qs.stringify({ tag, page });
   return username ? `/@${username}?${query}` : `/?${query}`;
 };
+
 const PaginationBlock = styled.div`
   width: 320px;
   margin: 0 auto;
@@ -81,9 +116,13 @@ const PaginationBlock = styled.div`
   margin-bottom: 3rem;
 `;
 
-const PageNumber = styled(Link)<{ isActive?: boolean }>`
+const PageNumber = styled(Link)`
+  margin-left: 0.5rem;
+  color: ${palette.gray7};
+  &.active {
+    color: ${palette.owlGreen};
+  }
   font-weight: bold;
-  color: ${(props) => (props.isActive ? palette.owlGreen : palette.gray7)};
   &:hover {
     color: ${palette.owlRed};
   }

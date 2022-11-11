@@ -3,9 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchPostById, removePostById } from '../../features/posts/postsAPI';
 import { postsAction } from '../../features/posts/postSlice';
-import PostDetail from '../../components/posts/PostDetail';
+import PostView from '../../components/posts/PostView';
+import PostActionButton from '../../components/posts/PostActionButton';
 
-const PostDetailContainer = () => {
+const PostViewContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -27,10 +28,22 @@ const PostDetailContainer = () => {
   };
 
   const onRemove = async () => {
-    dispatch(removePostById(Number(postId)));
+    try {
+      await dispatch(removePostById(Number(postId)));
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  return <PostDetail post={post} error={error} loading={loading} />;
+  return (
+    <PostView
+      post={post}
+      error={error}
+      loading={loading}
+      actionButton={<PostActionButton onEdit={onEdit} onRemove={onRemove} />}
+    />
+  );
 };
 
-export default PostDetailContainer;
+export default PostViewContainer;

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Props {
+interface HeaderProps {
   custom: boolean;
   username: string | null;
 }
 
-const HeaderLogo = ({ custom, username }: Props) => {
+const HeaderLogo = ({ custom, username }: HeaderProps) => {
   return <HeaderLogoBlack></HeaderLogoBlack>;
 };
 

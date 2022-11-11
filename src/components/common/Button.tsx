@@ -15,14 +15,14 @@ type ColorType =
 
 type ButtonSize = 'small' | 'medium' | 'large' | 'large-full';
 
-interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
+interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   to?: string;
   color?: ColorType;
   size?: ButtonSize;
   disabled?: boolean;
 }
 
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
   ref,
   to,

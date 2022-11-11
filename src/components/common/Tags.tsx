@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
-interface Props {
+interface TagsProps {
   tags: string[];
 }
 
-const Tags = ({ tags }: Props) => {
+const Tags = ({ tags }: TagsProps) => {
   return (
     <TagsBlock>
       {tags.map((tag) => (

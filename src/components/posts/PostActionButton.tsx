@@ -2,13 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
-interface Props {
+interface PostActionButtonProps {
   onEdit: () => void;
   onRemove: () => void;
 }
 
-const PostActionButton = ({ onEdit, onRemove }: Props) => {
-  return <PostActionButtonBlock></PostActionButtonBlock>;
+const PostActionButton = ({ onEdit, onRemove }: PostActionButtonProps) => {
+  return (
+    <PostActionButtonBlock>
+      <ActionButton onClick={onEdit}>수정</ActionButton>
+      <ActionButton onClick={onRemove}>삭제</ActionButton>
+    </PostActionButtonBlock>
+  );
 };
 
 const PostActionButtonBlock = styled.div`

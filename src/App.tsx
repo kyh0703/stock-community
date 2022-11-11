@@ -4,7 +4,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import PostWritePage from './pages/posts/PostWritePage';
 import PostListPage from './pages/posts/PostListPage';
-import PostDetailPage from './pages/posts/PostDetailPage';
+import PostViewPage from './pages/posts/PostViewPage';
 import { ThemeProvider } from 'styled-components';
 import darkTheme from './themes/dark';
 import lightTheme from './themes/light';
@@ -40,7 +40,7 @@ function App() {
           <Route path="/write" element={<PostWritePage />} />
           <Route path="/@:username">
             <Route index element={<PostListPage />} />
-            <Route path=":postId" element={<PostDetailPage />} />
+            <Route path=":postId" element={<PostViewPage />} />
           </Route>
         </Routes>
       </ThemeProvider>

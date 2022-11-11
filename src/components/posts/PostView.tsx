@@ -5,14 +5,17 @@ import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
 import Tags from '../common/Tags';
 
-interface Props {
+interface PostViewProps {
   post: Post | null;
   error: string | null | undefined;
   loading: boolean;
+  actionButton?: JSX.Element;
 }
 
-const PostDetail = ({ post, error, loading }: Props) => {
+const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
   if (error) {
+    // TODO 에러 처리
+    return <div>error 발생</div>;
   }
 
   if (loading || !post) {
@@ -21,18 +24,20 @@ const PostDetail = ({ post, error, loading }: Props) => {
 
   const { title, body, publishAt, tags } = post;
   return (
-    <PostViewerBlock>
+    <PostViewBlock>
       <PostHead>
         <h1>{title}</h1>
+        <div>{body}</div>
+        <PostContent />
+        <Tags tags={tags} />
       </PostHead>
-      <div>{body}</div>
-      <PostContent />
-      <Tags tags={tags} />
-    </PostViewerBlock>
+      {actionButton}
+      <PostContent dangerouslySetInnerHTML={{ __html: body }} />
+    </PostViewBlock>
   );
 };
 
-const PostViewerBlock = styled(Responsive)`
+const PostViewBlock = styled(Responsive)`
   margin-top: 4rem;
 `;
 
@@ -52,4 +57,4 @@ const PostContent = styled.div`
   color: ${palette.gray8};
 `;
 
-export default PostDetail;
+export default PostView;

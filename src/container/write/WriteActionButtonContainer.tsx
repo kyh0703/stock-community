@@ -1,5 +1,5 @@
 import React from 'react';
-import WriteActionButtons from '../../components/write/PostWriteActionButtons';
+import WriteActionButtons from '../../components/write/WriteActionButtons';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { postsAction } from '../../features/posts/postSlice';

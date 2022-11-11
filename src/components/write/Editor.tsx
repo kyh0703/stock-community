@@ -5,13 +5,13 @@ import ReactQuill from 'react-quill';
 import { InputPayload } from '../../features/posts/postSlice';
 import 'react-quill/dist/quill.snow.css';
 
-interface Props {
+interface EditorProps {
   title: string;
   body: string;
   onChangeField: (payload: InputPayload) => void;
 }
 
-const Editor = ({ title, body, onChangeField }: Props) => {
+const Editor = ({ title, body, onChangeField }: EditorProps) => {
   // quill 인스턴스를 설정
   const QuillRef = useRef<ReactQuill>(null);
 

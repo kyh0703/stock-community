@@ -9,12 +9,12 @@ import storage from '../../lib/storage';
 import { UserInfo } from '../../features/users/usersSlice';
 import Button from './Button';
 
-interface Props {
+interface HeaderProps {
   user: UserInfo;
   onLogout?: () => void;
 }
 
-const Header = ({ user, onLogout }: Props) => {
+const Header = ({ user, onLogout }: HeaderProps) => {
   const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
   // on toggle theme button event
