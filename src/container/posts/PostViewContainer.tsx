@@ -10,11 +10,14 @@ const PostViewContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { post, postError, loading } = useAppSelector(({ posts }) => ({
-    post: posts.post,
-    postError: posts.error,
-    loading: posts.loading,
-  }));
+  const { userId, post, postError, loading } = useAppSelector(
+    ({ posts, users }) => ({
+      userId: users.userInfo?.id,
+      post: posts.post,
+      postError: posts.error,
+      loading: posts.loading,
+    }),
+  );
 
   useEffect(() => {
     dispatch(fetchPostById(Number(postId)));
@@ -35,6 +38,7 @@ const PostViewContainer = () => {
     }
   };
 
+  // const isOwnPost = userId && userId == ;
   return (
     <PostView
       post={post}

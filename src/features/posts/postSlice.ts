@@ -13,7 +13,8 @@ export interface Post {
   body: string;
   tags: string[];
   publishAt: Date;
-  edges?: object;
+  userId: string;
+  username?: string;
 }
 
 interface PostsState {

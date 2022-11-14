@@ -21,7 +21,7 @@ const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
     return null;
   }
 
-  const { title, body, publishAt, tags } = post;
+  const { title, body, tags, publishAt, userId, username } = post;
   return (
     <PostViewBlock>
       <PostHead>
