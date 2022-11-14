@@ -17,6 +17,7 @@ interface HeaderProps {
 const Header = ({ user, onLogout }: HeaderProps) => {
   const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
+
   // on toggle theme button event
   const onToggleTheme = (e: React.MouseEvent<HTMLOrSVGElement>) => {
     if (theme === 'dark') {

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../../lib/client';
+import storage from '../../lib/storage';
 import { Post } from './postSlice';
 
 const API_HOST = 'http://localhost:8000';

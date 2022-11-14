@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { string, ValidationError } from 'yup';
 import client from '../../lib/client';
 import storage from '../../lib/storage';
 
@@ -17,9 +18,7 @@ export interface UserRegisterRequest {
   passwordConfirm: string;
 }
 
-export interface UserRegisterResponse {
-  accessToken: string;
-}
+export interface UserRegisterResponse {}
 
 export const registerUser = createAsyncThunk<
   UserRegisterResponse,
@@ -53,7 +52,7 @@ export interface UserLoginResponse {
   email: string;
   username: string;
   accessToken: string;
-  accessTokenExpire: number;
+  refreshToken: number;
 }
 
 export const loginUser = createAsyncThunk<
@@ -68,14 +67,14 @@ export const loginUser = createAsyncThunk<
       `/api/users/login`,
       fields,
     );
-    const { accessToken, accessTokenExpire } = response.data;
-    storage.setItem('userToken', {
-      accessToken,
-      accessTokenExpire,
-    });
+    const { accessToken, refreshToken } = response.data;
+    storage.setItem('access_token', accessToken);
+    storage.setItem('refresh_token', refreshToken);
     return response.data;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;
+    storage.removeItem('access_token');
+    storage.removeItem('refresh_token');
     if (!error.response) {
       throw err;
     }
@@ -102,16 +101,7 @@ export const getUserDetails = createAsyncThunk<
   }
 >('users/profile', async (fields, { rejectWithValue }) => {
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${fields.accessToken}`,
-      },
-    };
-
-    const response = await client.get<UserProfileResponse>(
-      `/api/users/check`,
-      config,
-    );
+    const response = await client.get<UserProfileResponse>(`/api/users/check`);
 
     return response.data;
   } catch (err) {
@@ -129,16 +119,10 @@ export const logoutUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/logout', async (fields, { rejectWithValue }) => {
+>('users/logout', async (params, { rejectWithValue }) => {
   try {
-    const token = storage.getItem('userToken');
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token.accessToken}`,
-      },
-    };
-    const response = await axios.post(`/api/users/logout`, fields, config);
-    storage.removeItem('userToken');
+    const response = await client.post(`/api/users/logout`, params);
+    storage.removeItem('access_token');
     return null;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;

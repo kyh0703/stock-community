@@ -14,8 +14,7 @@ interface PostViewProps {
 
 const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
   if (error) {
-    // TODO 에러 처리
-    return <div>error 발생</div>;
+    return <PostViewBlock>{error}</PostViewBlock>;
   }
 
   if (loading || !post) {

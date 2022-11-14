@@ -23,10 +23,6 @@ interface UsersState {
   error: string | null | undefined;
   success: boolean;
   userInfo: UserInfo | null;
-  userAuth: {
-    token: string;
-    expire: number;
-  } | null;
 }
 
 const initialState = {
@@ -42,6 +38,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // register
     builder.addCase(registerUser.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -58,6 +55,7 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
+    // login
     builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -69,11 +67,8 @@ const usersSlice = createSlice({
         email: auth.email,
         username: auth.username,
       };
-      state.userAuth = {
-        token: auth.accessToken,
-        expire: auth.accessTokenExpire,
-      };
     });
+    // login
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
       if (action.payload) {
@@ -82,6 +77,7 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
+    // getUserDetail
     builder.addCase(getUserDetails.pending, (state, action) => {
       state.loading = true;
       state.error = null;
@@ -98,6 +94,7 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
+    // logout
     builder.addCase(logoutUser.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -105,7 +102,6 @@ const usersSlice = createSlice({
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.loading = false;
       state.userInfo = null;
-      state.userAuth = null;
     });
     builder.addCase(logoutUser.rejected, (state, action) => {
       state.loading = false;

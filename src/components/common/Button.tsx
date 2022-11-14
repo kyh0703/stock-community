@@ -66,6 +66,46 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
+const ButtonSizeStyles = ({ size = 'medium' }: { size: ButtonSize }) => {
+  switch (size) {
+    case 'small':
+      return css`
+        height: 1.5rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        font-size: 1rem;
+      `;
+    case 'large':
+      return css`
+        height: 2.5rem;
+        padding-left: 1.125rem;
+        padding-right: 1.125rem;
+        & + & {
+          margin-left: 0.875rem;
+        }
+        font-size: 1.125rem;
+      `;
+    case 'large-full':
+      return css`
+        height: 2.5rem;
+        padding-left: 1.125rem;
+        padding-right: 1.125rem;
+        & + & {
+          margin-left: 0.875rem;
+        }
+        font-size: 1.125rem;
+        width: 100%;
+      `;
+    case 'medium':
+      return css`
+        height: 2rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        font-size: 1rem;
+      `;
+  }
+};
+
 const buttonStyle = css<{
   color: ColorType;
   size: ButtonSize;
@@ -87,48 +127,7 @@ const buttonStyle = css<{
     color: ${(props) => buttonColorMap[props.color].hoverBackground};
   }
 
-  ${(props) =>
-    props.size === 'small' &&
-    css`
-      height: 1.5rem;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-      font-size: 1rem;
-    `}
-
-  ${(props) =>
-    props.size === 'medium' &&
-    css`
-      height: 2rem;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-      font-size: 1rem;
-    `}
-
-  ${(props) =>
-    props.size === 'large' &&
-    css`
-      height: 2.5rem;
-      padding-left: 1.125rem;
-      padding-right: 1.125rem;
-      & + & {
-        margin-left: 0.875rem;
-      }
-      font-size: 1.125rem;
-    `}
-
-  ${(props) =>
-    props.size === 'large-full' &&
-    css`
-      height: 2.5rem;
-      padding-left: 1.125rem;
-      padding-right: 1.125rem;
-      & + & {
-        margin-left: 0.875rem;
-      }
-      font-size: 1.125rem;
-      width: 100%;
-    `}
+  ${ButtonSizeStyles}
 
   ${(props) =>
     props.disabled &&

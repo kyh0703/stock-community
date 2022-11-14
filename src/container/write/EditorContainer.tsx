@@ -14,6 +14,7 @@ const EditorContainer = () => {
     (payload: InputPayload) => dispatch(postsAction.changeWriteField(payload)),
     [dispatch],
   );
+
   // unmount 될 때 초기화
   useEffect(() => {
     return () => {

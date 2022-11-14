@@ -10,9 +10,9 @@ const PostViewContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { post, error, loading } = useAppSelector(({ posts }) => ({
+  const { post, postError, loading } = useAppSelector(({ posts }) => ({
     post: posts.post,
-    error: posts.error,
+    postError: posts.error,
     loading: posts.loading,
   }));
 
@@ -29,8 +29,7 @@ const PostViewContainer = () => {
 
   const onRemove = async () => {
     try {
-      await dispatch(removePostById(Number(postId)));
-      navigate('/');
+      dispatch(removePostById(Number(postId)));
     } catch (e) {
       console.log(e);
     }
@@ -39,7 +38,7 @@ const PostViewContainer = () => {
   return (
     <PostView
       post={post}
-      error={error}
+      error={postError}
       loading={loading}
       actionButton={<PostActionButton onEdit={onEdit} onRemove={onRemove} />}
     />
