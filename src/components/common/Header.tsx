@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { useAppDispatch } from '../../app/hooks';
 import { themeActions } from '../../features/theme/themeSlice';
 import storage from '../../lib/storage';
 import { UserInfo } from '../../features/users/usersSlice';
 import Button from './Button';
+import PlainNavLink from './PlainNavLink';
+import StyledNavLink from './StyledNavLink';
 
 interface HeaderProps {
   user: UserInfo;
@@ -15,6 +17,7 @@ interface HeaderProps {
 }
 
 const Header = ({ user, onLogout }: HeaderProps) => {
+  const { pathname } = useLocation();
   const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
 
@@ -34,10 +37,18 @@ const Header = ({ user, onLogout }: HeaderProps) => {
           <Right>
             <Items>
               <Item>
-                <Link to="/">Home</Link>
+                <StyledNavLink to="/" isActive={pathname === '/'}>
+                  Home
+                </StyledNavLink>
               </Item>
               <Item>
-                <Link to="/posts">게시글</Link>
+                <StyledNavLink
+                  to="/posts"
+                  isActive={pathname === '/posts'}
+                  className="active"
+                >
+                  게시글
+                </StyledNavLink>
               </Item>
               {user ? (
                 <>

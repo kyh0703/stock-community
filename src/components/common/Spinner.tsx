@@ -33,8 +33,8 @@ const SpinnerBlock = styled.div`
 
 const SpinnerItem = styled.div`
   position: relative;
-  height: 5rem;
-  width: 5rem;
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
   border: 1px solid ${palette.owlMagenta};
   border-top: none;
@@ -45,6 +45,7 @@ const SpinnerItem = styled.div`
 const SpinnerText = styled.em`
   color: ${(props) => props.theme.bodyContentColor};
   position: absolute;
+  letter-spacing: 1.2px;
 `;
 
 export default Spinner;
