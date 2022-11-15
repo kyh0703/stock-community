@@ -13,8 +13,8 @@ export interface Post {
   body: string;
   tags: string[];
   publishAt: Date;
-  userId: string;
-  username?: string;
+  userId: number;
+  username: string;
 }
 
 interface PostsState {
@@ -47,7 +47,7 @@ const initialState: PostsState = {
     lastPage: 1,
   },
   post: null,
-} as PostsState;
+};
 
 export interface InputPayload {
   key: 'body' | 'title';
@@ -111,7 +111,7 @@ const postsSlice = createSlice({
     });
     builder.addCase(fetchPostById.fulfilled, (state, { payload: post }) => {
       state.loading = false;
-      state.post = post;
+      state.post = post.post;
     });
     builder.addCase(fetchPostById.rejected, (state, action) => {
       state.loading = false;

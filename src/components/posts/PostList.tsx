@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Post } from '../../features/posts/postSlice';
 import Responsive from '../common/Responsive';
+import Spinner from '../common/Spinner';
 import PostItem from './PostItem';
 
 interface PostListProps {
@@ -11,8 +12,17 @@ interface PostListProps {
 
 const PostList = ({ posts, loading, error }: PostListProps) => {
   if (error) {
-    return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
+    return <PostListBlock>에러가 발생했습니다.{error}</PostListBlock>;
   }
+
+  if (loading) {
+    return (
+      <PostListBlock>
+        <Spinner message="loading..." />
+      </PostListBlock>
+    );
+  }
+
   return (
     <PostListBlock>
       <WritePostButtonWrapper></WritePostButtonWrapper>

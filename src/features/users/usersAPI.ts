@@ -4,9 +4,7 @@ import { string, ValidationError } from 'yup';
 import client from '../../lib/client';
 import storage from '../../lib/storage';
 
-const API_HOST = 'http://localhost:8000';
-
-export interface ValidationErrors {
+interface ValidationErrors {
   status: number;
   message: string | null | undefined;
 }
@@ -26,11 +24,11 @@ export const registerUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/register', async (fields, { rejectWithValue }) => {
+>('users/register', async (params, { rejectWithValue }) => {
   try {
     const response = await client.post<UserRegisterResponse>(
       `/api/users/register`,
-      fields,
+      params,
     );
     return response.data;
   } catch (err) {
@@ -61,11 +59,11 @@ export const loginUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/login', async (fields, { rejectWithValue }) => {
+>('users/login', async (params, { rejectWithValue }) => {
   try {
     const response = await client.post<UserLoginResponse>(
       `/api/users/login`,
-      fields,
+      params,
     );
     const { accessToken, refreshToken } = response.data;
     storage.setItem('access_token', accessToken);
@@ -99,10 +97,9 @@ export const getUserDetails = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/profile', async (fields, { rejectWithValue }) => {
+>('users/profile', async (params, { rejectWithValue }) => {
   try {
     const response = await client.get<UserProfileResponse>(`/api/users/check`);
-
     return response.data;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;

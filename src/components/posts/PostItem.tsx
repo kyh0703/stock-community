@@ -34,7 +34,7 @@ const PostItemBlock = styled.div`
     margin-top: 0;
     margin-bottom: 0;
     &:hover {
-      color: white;
+      color: ${(props) => props.theme.bodyContentHoverColor};
     }
   }
   p {

@@ -47,6 +47,7 @@ const Pagination = ({ page, totalPage, limit = 10, tag }: PaginationProps) => {
           <div>
             {pageNumberArr.map((num) => (
               <PageNumberItem
+                key={num}
                 curPage={page}
                 page={num}
                 tag={tag}

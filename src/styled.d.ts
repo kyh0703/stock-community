@@ -11,8 +11,9 @@ declare module 'styled-components' {
     bodyBackgroundColor: string;
     buttonColor: string;
     bodyContentColor: string;
-    bodyContentBorder: string;
+    bodyContentBorderColor: string;
     bodyContentBackgroundColor: string;
+    bodyContentHoverColor: string;
     buttonBackgroundColor: string;
     buttonHoverColor: string;
     errorColor: string;

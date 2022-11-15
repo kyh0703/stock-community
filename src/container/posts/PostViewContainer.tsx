@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchPostById, removePostById } from '../../features/posts/postsAPI';
@@ -20,7 +20,7 @@ const PostViewContainer = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchPostById(Number(postId)));
+    dispatch(fetchPostById({ postId: Number(postId) }));
     return () => {
       dispatch(postsAction.initPostField());
     };
@@ -33,18 +33,27 @@ const PostViewContainer = () => {
   const onRemove = async () => {
     try {
       dispatch(removePostById(Number(postId)));
+      navigate('/');
     } catch (e) {
       console.log(e);
     }
   };
 
-  // const isOwnPost = userId && userId == ;
+  const isOwnPost = (userId?: number, postUserId?: number) =>
+    userId === postUserId;
+
+  const actionButtons = isOwnPost(userId, post?.userId) ? (
+    <PostActionButton onEdit={onEdit} onRemove={onRemove} />
+  ) : (
+    <div />
+  );
+
   return (
     <PostView
       post={post}
       error={postError}
       loading={loading}
-      actionButton={<PostActionButton onEdit={onEdit} onRemove={onRemove} />}
+      actionButton={actionButtons}
     />
   );
 };

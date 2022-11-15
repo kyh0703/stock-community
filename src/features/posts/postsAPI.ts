@@ -1,48 +1,78 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../../lib/client';
-import storage from '../../lib/storage';
 import { Post } from './postSlice';
+import { AxiosError } from 'axios';
 
-const API_HOST = 'http://localhost:8000';
+interface ValidationErrors {
+  status: number;
+  message: string | null | undefined;
+}
 
-export interface PostListRequest {
+export interface PostsListRequest {
   tag: string | null;
   page: number | null;
   username?: string;
 }
 
-export interface PostListResponse {
+export interface PostsListResponse {
   posts: Post[] | null;
   lastPage: number;
 }
 
-export const fetchPosts = createAsyncThunk<PostListResponse, PostListRequest>(
-  'posts/fetch',
-  async (fields) => {
-    try {
-      const response = await client.get<Post[]>(`/api/posts`, {
-        params: { fields },
-      });
-      const listResponse: PostListResponse = {
-        posts: response.data,
-        lastPage: Number(response.headers['last-page']),
-      };
-      return listResponse;
-    } catch (err) {
+export const fetchPosts = createAsyncThunk<
+  PostsListResponse,
+  PostsListRequest,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('posts/list', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.get<{ posts: Post[] }>(`/api/posts/`, {
+      params,
+    });
+    return {
+      posts: response.data.posts,
+      lastPage: Number(response.headers['last-page']),
+    } as PostsListResponse;
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
+    if (!error.response) {
       throw err;
     }
-  },
-);
+    return rejectWithValue(error.response.data);
+  }
+});
 
-export const fetchPostById = createAsyncThunk(
-  'posts/fetchById',
-  async (postId: number) => {
-    const response = await client.get(`/api/posts/${postId}`);
-    return response.data;
-  },
-);
+export interface PostsFetchRequest {
+  postId: number;
+}
 
-interface CreatePostParams {
+export interface PostsFetchResponse {
+  post: Post;
+}
+
+export const fetchPostById = createAsyncThunk<
+  PostsFetchResponse,
+  PostsFetchRequest,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('posts/fetchById', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.get<Post>(`/api/posts/${params.postId}`);
+    return {
+      post: response.data,
+    };
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});
+
+interface PostCreateRequest {
   title: string;
   body: string;
   tags?: string[];
@@ -50,7 +80,7 @@ interface CreatePostParams {
 
 export const createPostById = createAsyncThunk(
   'posts/create',
-  async (params: CreatePostParams) => {
+  async (params: PostCreateRequest) => {
     const response = await client.post(`/api/posts/write`, {
       params,
     });
@@ -58,7 +88,7 @@ export const createPostById = createAsyncThunk(
   },
 );
 
-interface UpdatePostParams {
+interface PostUpdateRequest {
   id: string;
   title: string;
   body: string;
@@ -67,7 +97,7 @@ interface UpdatePostParams {
 
 export const updatePostById = createAsyncThunk(
   'posts/updateById',
-  async ({ id, title, body, tags }: UpdatePostParams) => {
+  async ({ id, title, body, tags }: PostUpdateRequest) => {
     const response = await client.put(`/api/posts/${id}`, {
       title,
       body,
@@ -79,8 +109,8 @@ export const updatePostById = createAsyncThunk(
 
 export const removePostById = createAsyncThunk(
   'posts/removeById',
-  async (userId: number) => {
-    const response = await client.delete(`/api/posts/${userId}`);
-    return response.data.json();
+  async (id: number) => {
+    const response = await client.delete(`/api/posts/${id}`);
+    return response.data;
   },
 );

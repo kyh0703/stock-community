@@ -32,7 +32,7 @@ const AuthBox = styled.div`
     letter-spacing: 2px;
   }
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-  border: 1px solid ${(props) => props.theme.bodyContentBorder};
+  border: 1px solid ${(props) => props.theme.bodyContentBorderColor};
   padding: 2rem;
   width: 360px;
   color: ${(props) => props.theme.bodyContentColor};

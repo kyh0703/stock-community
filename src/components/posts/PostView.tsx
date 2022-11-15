@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Post } from '../../features/posts/postSlice';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
+import Spinner from '../common/Spinner';
 import Tags from '../common/Tags';
 
 interface PostViewProps {
@@ -17,7 +18,11 @@ const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
     return <PostViewBlock>{error}</PostViewBlock>;
   }
 
-  if (loading || !post) {
+  if (loading) {
+    return <Spinner message="loading..." />;
+  }
+
+  if (!post) {
     return null;
   }
 
