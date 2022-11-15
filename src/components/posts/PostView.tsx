@@ -19,7 +19,11 @@ const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
   }
 
   if (loading) {
-    return <Spinner message="loading..." />;
+    return (
+      <PostViewBlock>
+        <Spinner message="loading..." />
+      </PostViewBlock>
+    );
   }
 
   if (!post) {
@@ -42,7 +46,7 @@ const PostView = ({ post, error, loading, actionButton }: PostViewProps) => {
 };
 
 const PostViewBlock = styled(Responsive)`
-  margin-top: 4rem;
+  margin-top: 3rem;
 `;
 
 const PostHead = styled.div`
