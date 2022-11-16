@@ -3,15 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 type PlainNavLinkProps = HTMLProps<HTMLAnchorElement> & {
   to: string;
-  activeClassName?: string;
-  activeStyle?: CSSProperties;
   isActive?: boolean;
 };
 
 const PlainNavLink: React.FC<PlainNavLinkProps> = ({
   to,
-  activeClassName,
-  activeStyle,
   isActive,
   className,
   children,
@@ -22,8 +18,6 @@ const PlainNavLink: React.FC<PlainNavLinkProps> = ({
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => (isActive ? activeClassName : className)}
-      style={({ isActive }) => (isActive ? activeStyle : style)}
       onClick={(e) => {
         if (htmlProps.onClick) {
           htmlProps.onClick(e);

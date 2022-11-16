@@ -5,12 +5,13 @@ import Button from '../common/Button';
 interface Props {
   onPublish: () => void;
   onCancel: () => void;
+  isEdit: boolean;
 }
 
-const WriteActionButtons = ({ onPublish, onCancel }: Props) => {
+const WriteActionButtons = ({ onPublish, onCancel, isEdit }: Props) => {
   return (
     <WriteActionButtonsBlock>
-      <Button onClick={onPublish}>포스트</Button>
+      <Button onClick={onPublish}>포스트 {isEdit ? '수정' : '등록'}</Button>
       <Button color="red" onClick={onCancel}>
         취소
       </Button>

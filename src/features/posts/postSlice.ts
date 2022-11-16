@@ -26,6 +26,7 @@ interface PostsState {
     title: string;
     body: string;
     tags: string[];
+    id: number;
   };
   list: {
     posts: Post[] | null;
@@ -42,6 +43,7 @@ const initialState: PostsState = {
     title: '',
     body: '',
     tags: [],
+    id: 0,
   },
   list: {
     posts: null,
@@ -63,10 +65,11 @@ const postsSlice = createSlice({
       state.write.body = '';
       state.write.tags = [];
     },
-    setUpdateWriteField: (state, { payload: { title, body, tags } }) => {
+    setUpdateWriteField: (state, { payload: { title, body, tags, id } }) => {
       state.write.title = title;
       state.write.body = body;
       state.write.tags = tags;
+      state.write.id = id;
     },
     changeWriteField: (
       state,

@@ -11,16 +11,19 @@ const TagBox = ({ tags, onChangeTags }: TagBoxProps) => {
   const [input, setInput] = useState('');
   const [localTags, setLocalTags] = useState<string[]>([]);
 
-  const insertTag = useCallback((tag: string) => {
-    if (!tag) return;
-    if (localTags.includes(tag)) return;
-    const nextTags = [...localTags, tag];
-    setLocalTags(nextTags);
-  }, []);
+  const insertTag = useCallback(
+    (tag: string) => {
+      if (!tag) return;
+      if (localTags.includes(tag)) return;
+      const nextTags = [...localTags, tag];
+      setLocalTags(nextTags);
+    },
+    [localTags, onChangeTags],
+  );
 
   const onRemove = useCallback(
     (tag: string) => {
-      const nextTags = localTags.filter((t) => t === tag);
+      const nextTags = localTags.filter((t) => t !== tag);
       setLocalTags(nextTags);
       onChangeTags(nextTags);
     },

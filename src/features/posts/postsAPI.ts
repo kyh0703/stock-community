@@ -75,42 +75,103 @@ export const fetchPostById = createAsyncThunk<
 interface PostCreateRequest {
   title: string;
   body: string;
-  tags?: string[];
+  tags: string[];
 }
 
-export const createPostById = createAsyncThunk(
-  'posts/create',
-  async (params: PostCreateRequest) => {
-    const response = await client.post(`/api/posts/write`, {
+interface PostCreateResponse {
+  id: number;
+  title: string;
+  body: string;
+  tags: string[];
+  publishAt: Date;
+  userId: number;
+  username: string;
+}
+
+export const createPostById = createAsyncThunk<
+  PostCreateResponse,
+  PostCreateRequest,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('posts/create', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.post<PostCreateResponse>(`/api/posts/write`, {
       params,
     });
     return response.data;
-  },
-);
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});
 
 interface PostUpdateRequest {
-  id: string;
+  id: number;
   title: string;
   body: string;
   tags: string[];
 }
 
-export const updatePostById = createAsyncThunk(
-  'posts/updateById',
-  async ({ id, title, body, tags }: PostUpdateRequest) => {
-    const response = await client.put(`/api/posts/${id}`, {
-      title,
-      body,
-      tags,
+interface PostUpdateResponse {
+  id: number;
+  title: string;
+  body: string;
+  tags: string[];
+  publishAt: Date;
+  userId: number;
+  username: string;
+}
+
+export const updatePostById = createAsyncThunk<
+  PostUpdateResponse,
+  PostUpdateRequest,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('posts/updateById', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.patch<PostUpdateResponse>(`/api/posts`, {
+      params,
     });
     return response.data;
-  },
-);
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});
 
-export const removePostById = createAsyncThunk(
-  'posts/removeById',
-  async (id: number) => {
-    const response = await client.delete(`/api/posts/${id}`);
+interface PostDeleteRequest {
+  id: number;
+}
+
+interface PostDeleteResponse {
+  id: number;
+}
+
+export const removePostById = createAsyncThunk<
+  PostDeleteResponse,
+  PostDeleteRequest,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('posts/removeById', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.delete<PostDeleteResponse>(`/api/posts`, {
+      params,
+    });
     return response.data;
-  },
-);
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});

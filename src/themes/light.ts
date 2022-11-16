@@ -10,7 +10,7 @@ const lightTheme: DefaultTheme = {
   bodyColor: 'black',
   bodyBackgroundColor: 'white',
   bodyContentColor: 'black',
-  bodyContentBorderColor: palette.gray0,
+  bodyContentBorderColor: palette.gray1,
   bodyContentHoverColor: palette.owlCyan,
   bodyContentBackgroundColor: 'white',
   buttonColor: 'black',

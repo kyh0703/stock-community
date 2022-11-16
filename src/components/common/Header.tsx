@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import { Link, useLocation } from 'react-router-dom';
 import { FaSun, FaMoon } from 'react-icons/fa';
@@ -9,7 +9,7 @@ import storage from '../../lib/storage';
 import { UserInfo } from '../../features/users/usersSlice';
 import Button from './Button';
 import PlainNavLink from './PlainNavLink';
-import StyledNavLink from './StyledNavLink';
+import palette from '../../lib/styles/palette';
 
 interface HeaderProps {
   user: UserInfo;
@@ -18,6 +18,7 @@ interface HeaderProps {
 
 const Header = ({ user, onLogout }: HeaderProps) => {
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
   const theme = storage.getItem('theme');
   const dispatch = useAppDispatch();
 
@@ -30,113 +31,133 @@ const Header = ({ user, onLogout }: HeaderProps) => {
     }
   };
 
+  const onToggleMenu = () => {
+    setMenuOpen((state) => !state);
+  };
+
   return (
     <>
       <HeaderBlock>
-        <Wrapper>
-          <Right>
-            <Items>
-              <Item>
-                <StyledNavLink to="/" isActive={pathname === '/'}>
-                  Home
-                </StyledNavLink>
-              </Item>
-              <Item>
-                <StyledNavLink
-                  to="/posts"
-                  isActive={pathname === '/posts'}
-                  className="active"
-                >
-                  게시글
-                </StyledNavLink>
-              </Item>
-              {user ? (
-                <>
-                  <StyleUserName>{user.username}</StyleUserName>
-                  <AuthButton onClick={onLogout}>로그아웃</AuthButton>
-                </>
-              ) : (
-                <AuthButton to="/login" color="violet">
-                  로그인
-                </AuthButton>
-              )}
-              <Item>
-                <ThemeLogoWrapper>
-                  {theme === 'dark' ? (
-                    <FaMoon onClick={onToggleTheme} />
-                  ) : (
-                    <FaSun onClick={onToggleTheme} />
-                  )}
-                </ThemeLogoWrapper>
-              </Item>
-            </Items>
-          </Right>
-        </Wrapper>
+        <MobileMenuIcon onClick={onToggleMenu}>
+          <div />
+          <div />
+          <div />
+        </MobileMenuIcon>
+        <Menu open={menuOpen}>
+          <StyledMenuItem to="/" isActive={pathname === '/'}>
+            Home
+          </StyledMenuItem>
+          <StyledMenuItem to="/posts" isActive={pathname === '/posts'}>
+            Post
+          </StyledMenuItem>
+          {user ? (
+            <>
+              <StyleUserName>{user.username}</StyleUserName>
+              <AuthButton onClick={onLogout}>로그아웃</AuthButton>
+            </>
+          ) : (
+            <AuthButton to="/login" color="violet">
+              로그인
+            </AuthButton>
+          )}
+          <ThemeLogoWrapper>
+            {theme === 'dark' ? (
+              <FaMoon onClick={onToggleTheme} />
+            ) : (
+              <FaSun onClick={onToggleTheme} />
+            )}
+          </ThemeLogoWrapper>
+        </Menu>
       </HeaderBlock>
-      <Spacer />
+      <Spacer open={menuOpen} />
     </>
   );
 };
 
 const HeaderBlock = styled.div`
-  position: fixed;
   height: 4rem;
   width: 100%;
+  display: flex;
+  padding: 0 16px;
+  position: fixed;
   top: 0;
-  left: 0;
   background-color: ${(p) => p.theme.headerBackgroundColor};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  font-size: 1.25rem;
 `;
 
-const Wrapper = styled(Responsive)`
-  height: 100%;
+const Menu = styled.nav<{
+  open: boolean;
+}>`
+  display: ${(p) => (p.open ? 'flex' : 'none')};
+  font-family: 'Kaushan Script';
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  height: 10rem;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  top: 4rem;
+  left: 0;
+  box-sizing: border-box;
+  background: ${(p) => p.theme.bodyContentBackgroundColor};
+  border-bottom: 3px solid ${(p) => p.theme.bodyContentBorderColor};
+  border-bottom-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+
+  // 브라우저 768px < current
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    background: none;
+    left: initial;
+    height: initial;
+    top: initial;
+    width: 100%;
+    position: relative;
+    border-bottom: none;
+    border-bottom-right-radius: none;
+    border-bottom-left-radius: none;
+
+    > * {
+      margin-right: 1.5rem;
+    }
+  }
 `;
 
-const Right = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 20px;
-`;
+const MobileMenuIcon = styled.div`
+  margin: auto 0 auto auto;
+  width: 3rem;
+  min-width: 3rem;
+  padding: 5px;
 
-const Items = styled.ul`
-  display: flex;
-  align-items: center;
-`;
+  > div {
+    height: 3px;
+    background: ${(p) => p.theme.bodyColor};
+    margin: 5px 0;
+    width: 100%;
+  }
 
-const Item = styled.li`
-  margin-right: 20px;
-  color: ${(p) => p.theme.headerColor};
-  transition: color 0.3s ease-in-out;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.125rem;
-  &:hover {
-    color: ${(p) => p.theme.headerHoverColor};
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
 const ThemeLogoWrapper = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
   cursor: pointer;
   color: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.3125rem;
   border-radius: 50%;
   &:hover {
     background-color: ${(p) => p.theme.headerColor};
   }
 `;
+
+const StyledMenuItem = styled(PlainNavLink)``;
 
 const StyleUserName = styled.div`
   margin-right: 1rem;
@@ -144,12 +165,11 @@ const StyleUserName = styled.div`
 `;
 
 const AuthButton = styled(Button)`
-  margin-right: 1rem;
   font-size: 1.125rem;
 `;
 
-const Spacer = styled.div`
-  height: 4rem;
+const Spacer = styled.div<{ open: boolean }>`
+  height: ${(p) => (p.open ? '14rem' : '4rem')};
 `;
 
 export default Header;

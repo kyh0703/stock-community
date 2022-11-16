@@ -33,7 +33,7 @@ const PostViewContainer = () => {
 
   const onRemove = async () => {
     try {
-      dispatch(removePostById(Number(postId)));
+      dispatch(removePostById({ id: Number(postId) }));
       navigate('/');
     } catch (e) {
       console.log(e);
@@ -43,7 +43,7 @@ const PostViewContainer = () => {
   const isOwnPost = (userId?: number, postUserId?: number) =>
     userId === postUserId;
 
-  const actionButtons = isOwnPost(userId, post?.userId) ? (
+  const actionButton = isOwnPost(userId, post?.userId) ? (
     <PostActionButton onEdit={onEdit} onRemove={onRemove} />
   ) : (
     <div />
@@ -54,7 +54,7 @@ const PostViewContainer = () => {
       post={post}
       error={postError}
       loading={loading}
-      actionButton={actionButtons}
+      actionButton={actionButton}
     />
   );
 };
