@@ -127,6 +127,11 @@ export const buttonColorMap: {
     hoverBackground: string;
   };
 } = {
+  none: {
+    background: 'none',
+    color: 'inherit',
+    hoverBackground: 'inherit',
+  },
   teal: {
     background: palette.teal3,
     color: 'white',

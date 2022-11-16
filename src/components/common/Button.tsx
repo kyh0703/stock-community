@@ -5,6 +5,7 @@ import palette, { buttonColorMap } from '../../lib/styles/palette';
 import PlainNavLink from './PlainNavLink';
 
 type ColorType =
+  | 'none'
   | 'teal'
   | 'gray'
   | 'red'

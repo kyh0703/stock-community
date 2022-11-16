@@ -53,11 +53,13 @@ const Header = ({ user, onLogout }: HeaderProps) => {
           {user ? (
             <>
               <StyleUserName>{user.username}</StyleUserName>
-              <AuthButton onClick={onLogout}>로그아웃</AuthButton>
+              <AuthButton onClick={onLogout} color={menuOpen ? 'none' : 'teal'}>
+                Logout
+              </AuthButton>
             </>
           ) : (
-            <AuthButton to="/login" color="violet">
-              로그인
+            <AuthButton to="/login" color={menuOpen ? 'none' : 'violet'}>
+              Login
             </AuthButton>
           )}
           <ThemeLogoWrapper>
