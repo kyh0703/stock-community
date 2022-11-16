@@ -55,8 +55,8 @@ body {
   font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.2;
-  color:${(props) => props.theme.bodyColor};
-  background-color: ${(props) => props.theme.bodyBackgroundColor};
+  color:${(p) => p.theme.bodyColor};
+  background-color: ${(p) => p.theme.bodyBackgroundColor};
 }
 a {
   text-decoration:none;

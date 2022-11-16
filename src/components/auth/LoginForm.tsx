@@ -103,7 +103,7 @@ const LoginFormBlock = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  color: ${(props) => props.theme.errorColor};
+  color: ${(p) => p.theme.errorColor};
   text-align: center;
   font-size: 0.875rem;
   margin-top: 1rem;

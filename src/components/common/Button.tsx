@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import palette, { buttonColorMap } from '../../lib/styles/palette';
+import PlainNavLink from './PlainNavLink';
 
 type ColorType =
   | 'teal'
@@ -33,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const htmlProps = rest as any;
   return to ? (
-    <StyledNav
+    <StyledLink
       to={to}
       color={color}
       size={size}
@@ -47,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
       }}
     >
       {children}
-    </StyledNav>
+    </StyledLink>
   ) : (
     <StyledButton
       color={color}
@@ -120,17 +121,17 @@ const buttonStyle = css<{
   border: none;
   border-radius: 4px;
 
-  color: ${(props) => buttonColorMap[props.color].color};
-  background: ${(props) => buttonColorMap[props.color].background};
+  color: ${(p) => buttonColorMap[p.color].color};
+  background: ${(p) => buttonColorMap[p.color].background};
   &:hover,
   &:focus {
-    color: ${(props) => buttonColorMap[props.color].hoverBackground};
+    color: ${(p) => buttonColorMap[p.color].hoverBackground};
   }
 
   ${ButtonSizeStyles}
 
-  ${(props) =>
-    props.disabled &&
+  ${(p) =>
+    p.disabled &&
     css`
       background: ${palette.gray3};
       color: ${palette.gray5};
@@ -142,7 +143,7 @@ const StyledButton = styled.button`
   ${buttonStyle}
 `;
 
-const StyledNav = styled(Link)`
+const StyledLink = styled(Link)`
   text-decoration: none;
   &:focus,
   &:hover,

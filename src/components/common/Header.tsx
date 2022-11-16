@@ -84,7 +84,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  background-color: ${(props) => props.theme.headerBackgroundColor};
+  background-color: ${(p) => p.theme.headerBackgroundColor};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
 
@@ -111,7 +111,7 @@ const Items = styled.ul`
 
 const Item = styled.li`
   margin-right: 20px;
-  color: ${(props) => props.theme.headerColor};
+  color: ${(p) => p.theme.headerColor};
   transition: color 0.3s ease-in-out;
   position: relative;
   display: flex;
@@ -119,7 +119,7 @@ const Item = styled.li`
   align-items: center;
   font-size: 1.125rem;
   &:hover {
-    color: ${(props) => props.theme.headerHoverColor};
+    color: ${(p) => p.theme.headerHoverColor};
   }
 `;
 
@@ -134,7 +134,7 @@ const ThemeLogoWrapper = styled.div`
   font-size: 1.3125rem;
   border-radius: 50%;
   &:hover {
-    background-color: ${(props) => props.theme.headerColor};
+    background-color: ${(p) => p.theme.headerColor};
   }
 `;
 

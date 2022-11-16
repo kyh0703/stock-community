@@ -5,9 +5,10 @@ import { postsAction, InputPayload } from '../../features/posts/postSlice';
 
 const EditorContainer = () => {
   const dispatch = useAppDispatch();
-  const { title, body } = useAppSelector(({ posts }) => ({
+  const { title, body, tags } = useAppSelector(({ posts }) => ({
     title: posts.write.title,
     body: posts.write.body,
+    tags: posts.write.tags,
   }));
 
   const onChangeField = useCallback(
@@ -17,9 +18,9 @@ const EditorContainer = () => {
 
   // unmount 될 때 초기화
   useEffect(() => {
-    return () => {
-      dispatch(postsAction.initWriteFiled());
-    };
+    // return () => {
+    //   dispatch(postsAction.initWriteFiled());
+    // };
   }, [dispatch]);
 
   return <Editor title={title} body={body} onChangeField={onChangeField} />;

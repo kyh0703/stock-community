@@ -16,7 +16,6 @@ const PlainNavLink: React.FC<PlainNavLinkProps> = ({
   className,
   children,
   style,
-  onClick,
   ...rest
 }) => {
   const htmlProps = rest as any;
@@ -25,7 +24,12 @@ const PlainNavLink: React.FC<PlainNavLinkProps> = ({
       to={to}
       className={({ isActive }) => (isActive ? activeClassName : className)}
       style={({ isActive }) => (isActive ? activeStyle : style)}
-      onClick={onClick}
+      onClick={(e) => {
+        if (htmlProps.onClick) {
+          htmlProps.onClick(e);
+        }
+        (e.target as HTMLAnchorElement).blur();
+      }}
       {...htmlProps}
     >
       {children}

@@ -92,7 +92,7 @@ const TitleInput = styled.input`
   outline: none;
   padding-bottom: 0.5rem;
   border: none;
-  border-bottom: 1px solid ${(props) => props.theme.bodyColor};
+  border-bottom: 1px solid ${(p) => p.theme.bodyColor};
   margin-bottom: 2rem;
   width: 100%;
 `;

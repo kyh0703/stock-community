@@ -21,22 +21,23 @@ interface PostsState {
   loading: boolean;
   error: string | null | undefined;
   success: boolean;
+  post: Post | null;
   write: {
     title: string;
     body: string;
-    tags?: string[];
+    tags: string[];
   };
   list: {
     posts: Post[] | null;
     lastPage: number;
   };
-  post: Post | null;
 }
 
 const initialState: PostsState = {
   loading: false,
   error: null,
   success: false,
+  post: null,
   write: {
     title: '',
     body: '',
@@ -46,12 +47,11 @@ const initialState: PostsState = {
     posts: null,
     lastPage: 1,
   },
-  post: null,
 };
 
 export interface InputPayload {
-  key: 'body' | 'title';
-  value: string;
+  key: 'body' | 'title' | 'tags';
+  value: string | string[];
 }
 
 const postsSlice = createSlice({
@@ -61,9 +61,12 @@ const postsSlice = createSlice({
     initWriteFiled: (state) => {
       state.write.title = '';
       state.write.body = '';
+      state.write.tags = [];
     },
-    initPostField: (state) => {
-      state.post = null;
+    setUpdateWriteField: (state, { payload: { title, body, tags } }) => {
+      state.write.title = title;
+      state.write.body = body;
+      state.write.tags = tags;
     },
     changeWriteField: (
       state,
@@ -75,6 +78,9 @@ const postsSlice = createSlice({
         [key]: value,
       },
     }),
+    initPostField: (state) => {
+      state.post = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createPostById.pending, (state) => {

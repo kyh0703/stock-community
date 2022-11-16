@@ -15,7 +15,7 @@ const HeaderLogoBlack = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: ${(props) => props.theme.LogoColor};
+  color: ${(p) => p.theme.LogoColor};
   font-size: 1.3125rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

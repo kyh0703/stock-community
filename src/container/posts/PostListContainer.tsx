@@ -7,14 +7,13 @@ import { fetchPosts } from '../../features/posts/postsAPI';
 const PostListContainer = () => {
   const { username } = useParams();
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
   const { posts, loading, error } = useAppSelector(({ posts }) => ({
     posts: posts.list.posts,
     loading: posts.loading,
     error: posts.error,
   }));
-  const dispatch = useAppDispatch();
 
-  // loading posts data
   useEffect(() => {
     const tag = searchParams.get('tag');
     const page = Number(searchParams.get('page')) || 1;

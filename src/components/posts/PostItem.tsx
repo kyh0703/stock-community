@@ -9,11 +9,11 @@ interface PostItemProps {
 }
 
 const PostItem = ({ post }: PostItemProps) => {
-  const { id, title, body } = post;
+  const { id, title, body, username } = post;
   return (
     <PostItemBlock>
       <h2>
-        <Link to={`/@test/${id}`}>{title}</Link>
+        <Link to={`@${username}/${id}`}>{title}</Link>
       </h2>
       <p>{body}</p>
     </PostItemBlock>
@@ -34,7 +34,7 @@ const PostItemBlock = styled.div`
     margin-top: 0;
     margin-bottom: 0;
     &:hover {
-      color: ${(props) => props.theme.bodyContentHoverColor};
+      color: ${(p) => p.theme.bodyContentHoverColor};
     }
   }
   p {

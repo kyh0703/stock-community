@@ -32,11 +32,11 @@ const AuthBox = styled.div`
     letter-spacing: 2px;
   }
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-  border: 1px solid ${(props) => props.theme.bodyContentBorderColor};
+  border: 1px solid ${(p) => p.theme.bodyContentBorderColor};
   padding: 2rem;
   width: 360px;
-  color: ${(props) => props.theme.bodyContentColor};
-  background: ${(props) => props.theme.bodyContentBackgroundColor};
+  color: ${(p) => p.theme.bodyContentColor};
+  background: ${(p) => p.theme.bodyContentBackgroundColor};
   border-radius: 10px;
 `;
 

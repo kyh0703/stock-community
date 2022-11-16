@@ -27,8 +27,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 const InputWrap = styled.div<{ flex: boolean }>`
-  ${(props) =>
-    props.flex &&
+  ${(p) =>
+    p.flex &&
     css`
       display: flex;
       justify-content: center;
@@ -40,8 +40,8 @@ const InputLabel = styled.label<{ flex: boolean }>`
   text-align: left;
   font-size: 1rem;
   font-weight: 400;
-  ${(props) =>
-    props.flex &&
+  ${(p) =>
+    p.flex &&
     css`
       padding-left: 1.25rem;
       padding-right: 1.25rem;

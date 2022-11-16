@@ -27,6 +27,7 @@ const PostViewContainer = () => {
   }, [dispatch, postId]);
 
   const onEdit = () => {
+    dispatch(postsAction.setUpdateWriteField(post));
     navigate('/write');
   };
 
