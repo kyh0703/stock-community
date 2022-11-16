@@ -102,8 +102,8 @@ const Menu = styled.nav<{
   box-sizing: border-box;
   background: ${(p) => p.theme.bodyContentBackgroundColor};
   border-bottom: 3px solid ${(p) => p.theme.bodyContentBorderColor};
-  border-bottom-right-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 
   // 브라우저 768px < current
   @media (min-width: 768px) {
