@@ -158,6 +158,10 @@ const ThemeLogoWrapper = styled.div`
   &:hover {
     background-color: ${(p) => p.theme.headerColor};
   }
+
+  &:active {
+    outline: 0;
+  }
 `;
 
 const StyledMenuItem = styled(PlainNavLink)`
