@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+interface StocksPrices {}
+
 export interface StockState {
   user: null;
   checkError: null;

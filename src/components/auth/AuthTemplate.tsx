@@ -34,7 +34,7 @@ const AuthBox = styled.div`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
   border: 1px solid ${(p) => p.theme.bodyContentBorderColor};
   padding: 2rem;
-  width: 360px;
+  width: 460px;
   color: ${(p) => p.theme.bodyContentColor};
   background: ${(p) => p.theme.bodyContentBackgroundColor};
   border-radius: 10px;

@@ -9,9 +9,7 @@ type PlainNavLinkProps = HTMLProps<HTMLAnchorElement> & {
 const PlainNavLink: React.FC<PlainNavLinkProps> = ({
   to,
   isActive,
-  className,
   children,
-  style,
   ...rest
 }) => {
   const htmlProps = rest as any;

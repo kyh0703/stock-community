@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Responsive from './Responsive';
 import { Link, useLocation } from 'react-router-dom';
 import { FaSun, FaMoon } from 'react-icons/fa';
@@ -52,7 +52,7 @@ const Header = ({ user, onLogout }: HeaderProps) => {
           </StyledMenuItem>
           {user ? (
             <>
-              <StyleUserName>{user.username}</StyleUserName>
+              <StyleUserName>{user.email}</StyleUserName>
               <AuthButton onClick={onLogout} color={menuOpen ? 'none' : 'teal'}>
                 Logout
               </AuthButton>
@@ -154,12 +154,17 @@ const ThemeLogoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+
   &:hover {
     background-color: ${(p) => p.theme.headerColor};
   }
 `;
 
-const StyledMenuItem = styled(PlainNavLink)``;
+const StyledMenuItem = styled(PlainNavLink)`
+  &.active {
+    color: ${(p) => p.theme.headerHoverColor};
+  }
+`;
 
 const StyleUserName = styled.div`
   margin-right: 1rem;
