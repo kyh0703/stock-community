@@ -35,8 +35,8 @@ const PostViewContainer = () => {
     try {
       dispatch(removePostById({ id: Number(postId) }));
       navigate('/');
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   };
 

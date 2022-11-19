@@ -41,11 +41,11 @@ const Button: React.FC<ButtonProps> = ({
       size={size}
       disabled={disabled}
       {...htmlProps}
-      onClick={(e) => {
+      onClick={(event) => {
         if (htmlProps.onClick) {
-          htmlProps.onClick(e);
+          htmlProps.onClick(event);
         }
-        (e.target as HTMLAnchorElement).blur();
+        (event.target as HTMLAnchorElement).blur();
       }}
     >
       {children}
@@ -56,11 +56,11 @@ const Button: React.FC<ButtonProps> = ({
       size={size}
       disabled={disabled}
       {...htmlProps}
-      onClick={(e) => {
+      onClick={(event) => {
         if (htmlProps.onClick) {
-          htmlProps.onClick(e);
+          htmlProps.onClick(event);
         }
-        (e.target as HTMLButtonElement).blur();
+        (event.target as HTMLButtonElement).blur();
       }}
     >
       {children}
@@ -122,17 +122,17 @@ const buttonStyle = css<{
   border: none;
   border-radius: 4px;
 
-  color: ${(p) => buttonColorMap[p.color].color};
-  background: ${(p) => buttonColorMap[p.color].background};
+  color: ${(props) => buttonColorMap[props.color].color};
+  background: ${(props) => buttonColorMap[props.color].background};
   &:hover,
   &:focus {
-    color: ${(p) => buttonColorMap[p.color].hoverBackground};
+    color: ${(props) => buttonColorMap[props.color].hoverBackground};
   }
 
   ${ButtonSizeStyles}
 
-  ${(p) =>
-    p.disabled &&
+  ${(props) =>
+    props.disabled &&
     css`
       background: ${palette.gray3};
       color: ${palette.gray5};

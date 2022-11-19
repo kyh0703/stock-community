@@ -43,7 +43,7 @@ const SpinnerItem = styled.div`
 `;
 
 const SpinnerText = styled.em`
-  color: ${(p) => p.theme.bodyContentColor};
+  color: ${(props) => props.theme.bodyContentColor};
   position: absolute;
   letter-spacing: 1.2px;
 `;

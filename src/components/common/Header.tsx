@@ -83,7 +83,7 @@ const HeaderBlock = styled.div`
   padding: 0 16px;
   position: fixed;
   top: 0;
-  background-color: ${(p) => p.theme.headerBackgroundColor};
+  background-color: ${(props) => props.theme.headerBackgroundColor};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   font-size: 1.25rem;
 `;
@@ -91,7 +91,7 @@ const HeaderBlock = styled.div`
 const Menu = styled.nav<{
   open: boolean;
 }>`
-  display: ${(p) => (p.open ? 'flex' : 'none')};
+  display: ${(props) => (props.open ? 'flex' : 'none')};
   font-family: 'Kaushan Script';
   flex-direction: column;
   justify-content: space-around;
@@ -102,8 +102,8 @@ const Menu = styled.nav<{
   top: 4rem;
   left: 0;
   box-sizing: border-box;
-  background: ${(p) => p.theme.bodyContentBackgroundColor};
-  border-bottom: 3px solid ${(p) => p.theme.bodyContentBorderColor};
+  background: ${(props) => props.theme.bodyContentBackgroundColor};
+  border-bottom: 3px solid ${(props) => props.theme.bodyContentBorderColor};
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 
@@ -137,7 +137,7 @@ const MobileMenuIcon = styled.div`
 
   > div {
     height: 3px;
-    background: ${(p) => p.theme.bodyColor};
+    background: ${(props) => props.theme.bodyColor};
     margin: 5px 0;
     width: 100%;
   }
@@ -156,7 +156,7 @@ const ThemeLogoWrapper = styled.div`
   border-radius: 50%;
 
   &:hover {
-    background-color: ${(p) => p.theme.headerColor};
+    background-color: ${(props) => props.theme.headerColor};
   }
 
   &:active {
@@ -166,7 +166,7 @@ const ThemeLogoWrapper = styled.div`
 
 const StyledMenuItem = styled(PlainNavLink)`
   &.active {
-    color: ${(p) => p.theme.headerHoverColor};
+    color: ${(props) => props.theme.headerHoverColor};
   }
 `;
 
@@ -180,7 +180,7 @@ const AuthButton = styled(Button)`
 `;
 
 const Spacer = styled.div<{ open: boolean }>`
-  height: ${(p) => (p.open ? '14rem' : '4rem')};
+  height: ${(props) => (props.open ? '14rem' : '4rem')};
 `;
 
 export default Header;

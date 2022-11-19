@@ -16,11 +16,11 @@ const PlainNavLink: React.FC<PlainNavLinkProps> = ({
   return (
     <NavLink
       to={to}
-      onClick={(e) => {
+      onClick={(event) => {
         if (htmlProps.onClick) {
-          htmlProps.onClick(e);
+          htmlProps.onClick(event);
         }
-        (e.target as HTMLAnchorElement).blur();
+        (event.target as HTMLAnchorElement).blur();
       }}
       {...htmlProps}
     >

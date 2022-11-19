@@ -54,8 +54,8 @@ const Editor = ({ title, body, onChangeField }: EditorProps) => {
   ];
 
   // Handle change title
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChangeField({ key: 'title', value: e.target.value });
+  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChangeField({ key: 'title', value: event.target.value });
   };
 
   return (
@@ -92,7 +92,7 @@ const TitleInput = styled.input`
   outline: none;
   padding-bottom: 0.5rem;
   border: none;
-  border-bottom: 1px solid ${(p) => p.theme.bodyColor};
+  border-bottom: 1px solid ${(props) => props.theme.bodyColor};
   margin-bottom: 2rem;
   width: 100%;
 `;
