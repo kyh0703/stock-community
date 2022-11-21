@@ -59,7 +59,7 @@ const AskModalBlock = styled.div`
   background: ${(props) => props.theme.askModalBackgroundColor};
   padding: 1.5rem;
   border-radius: 4px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: 0px 0px 8px ${(props) => props.theme.askModalShadowColor};
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
