@@ -17,5 +17,7 @@ declare module 'styled-components' {
     buttonBackgroundColor: string;
     buttonHoverColor: string;
     errorColor: string;
+    askModalBackgroundColor: string;
+    askModalShadowColor: string;
   }
 }

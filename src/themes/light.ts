@@ -1,3 +1,4 @@
+import { FaRegAddressBook } from 'react-icons/fa';
 import { DefaultTheme } from 'styled-components';
 import palette from '../lib/styles/palette';
 
@@ -17,6 +18,8 @@ const lightTheme: DefaultTheme = {
   buttonBackgroundColor: 'black',
   buttonHoverColor: 'red',
   errorColor: 'red',
+  askModalBackgroundColor: '#dfe4ea',
+  askModalShadowColor: 'rgba(230, 230, 233, 0.7)',
 };
 
 export default lightTheme;

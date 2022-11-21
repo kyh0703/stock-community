@@ -7,7 +7,7 @@ const DECODING_API_KEY = `
 9McbVFO9ibgLwHC8kXzDW3Rm7sgbWZj3eZ6iugOLmJbE6okv2FVN/vFmR0lQJBjoPQN9QHeRfKyV63F17Mi8Cg==
 `;
 
-interface StocksPriceRequest {
+export interface StocksPriceRequest {
   serviceKey: string; // 서비스 키
   numOfRows: number; // 한 페이지 결과 수
   pageNo: number; // 페이지 번호
@@ -37,7 +37,7 @@ interface StocksPriceRequest {
   likePurRgtScrtltmsNm?: string; // 목적주권 종목명
 }
 
-interface StocksPriceResponse {
+export interface StocksPriceResponse {
   resultCode: number; // 결과코드
   resultMsg: string; // 결과메시지
   numOfRows: number; // 한 페이지 결과 수

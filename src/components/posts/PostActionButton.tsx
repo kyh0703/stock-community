@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import AskRemoveModal from './AskRemoveModal';
 
 interface PostActionButtonProps {
   onEdit: () => void;
@@ -8,11 +9,30 @@ interface PostActionButtonProps {
 }
 
 const PostActionButton = ({ onEdit, onRemove }: PostActionButtonProps) => {
+  const [modal, setModal] = useState(false);
+  const onRemoveClick = () => {
+    setModal(true);
+  };
+  const onCancel = () => {
+    setModal(false);
+  };
+  const onConfirm = () => {
+    setModal(false);
+    onRemove();
+  };
+
   return (
-    <PostActionButtonBlock>
-      <ActionButton onClick={onEdit}>수정</ActionButton>
-      <ActionButton onClick={onRemove}>삭제</ActionButton>
-    </PostActionButtonBlock>
+    <>
+      <PostActionButtonBlock>
+        <ActionButton onClick={onEdit}>수정</ActionButton>
+        <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
+      </PostActionButtonBlock>
+      <AskRemoveModal
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+      />
+    </>
   );
 };
 

@@ -17,6 +17,8 @@ const darkTheme: DefaultTheme = {
   buttonBackgroundColor: 'white',
   buttonHoverColor: 'red',
   errorColor: 'red',
+  askModalBackgroundColor: palette.gray9,
+  askModalShadowColor: 'rgba(0,50,20,0.7)',
 };
 
 export default darkTheme;
