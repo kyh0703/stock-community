@@ -3,9 +3,9 @@ import { FaMeteor } from 'react-icons/fa';
 import storage from '../../lib/storage';
 import {
   getUserDetails,
-  loginUser,
-  logoutUser,
-  registerUser,
+  signupUser,
+  signinUser,
+  signoutUser,
 } from './usersAPI';
 
 const userAuth = storage.getItem('userToken')
@@ -38,16 +38,16 @@ const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // register
-    builder.addCase(registerUser.pending, (state) => {
+    // signup
+    builder.addCase(signupUser.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerUser.fulfilled, (state, { payload: auth }) => {
+    builder.addCase(signupUser.fulfilled, (state, { payload: auth }) => {
       state.loading = false;
       state.success = true;
     });
-    builder.addCase(registerUser.rejected, (state, action) => {
+    builder.addCase(signupUser.rejected, (state, action) => {
       state.loading = false;
       if (action.payload) {
         state.error = action.payload.message;
@@ -55,12 +55,12 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
-    // login
-    builder.addCase(loginUser.pending, (state) => {
+    // signin
+    builder.addCase(signinUser.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(loginUser.fulfilled, (state, { payload: auth }) => {
+    builder.addCase(signinUser.fulfilled, (state, { payload: auth }) => {
       state.loading = false;
       state.userInfo = {
         id: auth.id,
@@ -68,8 +68,24 @@ const usersSlice = createSlice({
         username: auth.username,
       };
     });
-    // login
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(signinUser.rejected, (state, action) => {
+      state.loading = false;
+      if (action.payload) {
+        state.error = action.payload.message;
+      } else {
+        state.error = action.error.message;
+      }
+    });
+    // signout
+    builder.addCase(signoutUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(signoutUser.fulfilled, (state) => {
+      state.loading = false;
+      state.userInfo = null;
+    });
+    builder.addCase(signoutUser.rejected, (state, action) => {
       state.loading = false;
       if (action.payload) {
         state.error = action.payload.message;
@@ -87,23 +103,6 @@ const usersSlice = createSlice({
       state.userInfo = auth;
     });
     builder.addCase(getUserDetails.rejected, (state, action) => {
-      state.loading = false;
-      if (action.payload) {
-        state.error = action.payload.message;
-      } else {
-        state.error = action.error.message;
-      }
-    });
-    // logout
-    builder.addCase(logoutUser.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(logoutUser.fulfilled, (state) => {
-      state.loading = false;
-      state.userInfo = null;
-    });
-    builder.addCase(logoutUser.rejected, (state, action) => {
       state.loading = false;
       if (action.payload) {
         state.error = action.payload.message;

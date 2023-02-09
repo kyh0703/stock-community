@@ -9,12 +9,9 @@ import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { useEffect } from 'react';
-import {
-  registerUser,
-  UserRegisterRequest,
-} from '../../features/users/usersAPI';
+import { signupUser, UserSignUpRequest } from '../../features/users/usersAPI';
 
-const RegisterForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authError, success } = useAppSelector(({ users }) => ({
@@ -44,12 +41,12 @@ const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UserRegisterRequest>({
+  } = useForm<UserSignUpRequest>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = async (data: UserRegisterRequest) => {
-    dispatch(registerUser(data));
+  const onSubmit = async (data: UserSignUpRequest) => {
+    dispatch(signupUser(data));
   };
 
   useEffect(() => {
@@ -166,4 +163,4 @@ const Footer = styled.div`
   }
 `;
 
-export default RegisterForm;
+export default SignUpForm;

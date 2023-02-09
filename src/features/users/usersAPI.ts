@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-import { string, ValidationError } from 'yup';
 import client from '../../lib/client';
 import storage from '../../lib/storage';
 
@@ -9,25 +8,25 @@ interface ValidationErrors {
   message: string | null | undefined;
 }
 
-export interface UserRegisterRequest {
+export interface UserSignUpRequest {
   email: string;
   username: string;
   password: string;
   passwordConfirm: string;
 }
 
-export interface UserRegisterResponse {}
+export interface UserSignUpResponse {}
 
-export const registerUser = createAsyncThunk<
-  UserRegisterResponse,
-  UserRegisterRequest,
+export const signupUser = createAsyncThunk<
+  UserSignUpResponse,
+  UserSignUpRequest,
   {
     rejectValue: ValidationErrors;
   }
->('users/register', async (params, { rejectWithValue }) => {
+>('users/signup', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post<UserRegisterResponse>(
-      `/api/users/register`,
+    const response = await client.post<UserSignUpResponse>(
+      `/api/users/signup`,
       params,
     );
     return response.data;
@@ -40,12 +39,12 @@ export const registerUser = createAsyncThunk<
   }
 });
 
-export interface UserLoginRequest {
+export interface UserSignInRequest {
   email: string;
   password: string;
 }
 
-export interface UserLoginResponse {
+export interface UserSignInResponse {
   id: number;
   email: string;
   username: string;
@@ -53,16 +52,16 @@ export interface UserLoginResponse {
   refreshToken: number;
 }
 
-export const loginUser = createAsyncThunk<
-  UserLoginResponse,
-  UserLoginRequest,
+export const signinUser = createAsyncThunk<
+  UserSignInResponse,
+  UserSignInRequest,
   {
     rejectValue: ValidationErrors;
   }
->('users/login', async (params, { rejectWithValue }) => {
+>('users/signin', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post<UserLoginResponse>(
-      `/api/users/login`,
+    const response = await client.post<UserSignInResponse>(
+      `/api/users/signin`,
       params,
     );
     const { accessToken, refreshToken } = response.data;
@@ -73,6 +72,26 @@ export const loginUser = createAsyncThunk<
     let error: AxiosError<ValidationErrors> = err as any;
     storage.removeItem('access_token');
     storage.removeItem('refresh_token');
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const signoutUser = createAsyncThunk<
+  null,
+  undefined,
+  {
+    rejectValue: ValidationErrors;
+  }
+>('users/signout', async (params, { rejectWithValue }) => {
+  try {
+    const response = await client.post(`/api/users/signout`, params);
+    storage.removeItem('access_token');
+    return null;
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err as any;
     if (!error.response) {
       throw err;
     }
@@ -101,26 +120,6 @@ export const getUserDetails = createAsyncThunk<
   try {
     const response = await client.get<UserProfileResponse>(`/api/users/check`);
     return response.data;
-  } catch (err) {
-    let error: AxiosError<ValidationErrors> = err as any;
-    if (!error.response) {
-      throw err;
-    }
-    return rejectWithValue(error.response.data);
-  }
-});
-
-export const logoutUser = createAsyncThunk<
-  null,
-  undefined,
-  {
-    rejectValue: ValidationErrors;
-  }
->('users/logout', async (params, { rejectWithValue }) => {
-  try {
-    const response = await client.post(`/api/users/logout`, params);
-    storage.removeItem('access_token');
-    return null;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;
     if (!error.response) {

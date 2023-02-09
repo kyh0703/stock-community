@@ -1,11 +1,11 @@
 import AuthContainer from '../../container/auth/AuthContainer';
 
-const LoginPage = () => {
+const SignInPage = () => {
   return (
     <>
-      <AuthContainer authType="login" />
+      <AuthContainer authType="signin" />
     </>
   );
 };
 
-export default LoginPage;
+export default SignInPage;

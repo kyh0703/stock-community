@@ -1,7 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/home/HomePage';
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
 import PostWritePage from './pages/posts/PostWritePage';
 import PostListPage from './pages/posts/PostListPage';
 import PostViewPage from './pages/posts/PostViewPage';
@@ -12,6 +9,8 @@ import { useAppSelector, useAppDispatch } from './app/hooks';
 import GlobalStyle from './GlobalStyles';
 import { themeActions } from './features/theme/themeSlice';
 import { useEffect } from 'react';
+import SignUpPage from './pages/auth/SignUpPage';
+import SignInPage from './pages/auth/SignInPage';
 
 function App() {
   const { theme } = useAppSelector(({ theme }) => ({
@@ -35,8 +34,8 @@ function App() {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<PostListPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/write" element={<PostWritePage />} />
           <Route path="/@:username">
             <Route index element={<PostListPage />} />
