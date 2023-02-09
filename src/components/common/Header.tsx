@@ -58,7 +58,7 @@ const Header = ({ user, onLogout }: HeaderProps) => {
               </AuthButton>
             </>
           ) : (
-            <AuthButton to="/login" color={menuOpen ? 'none' : 'violet'}>
+            <AuthButton to="/signin" color={menuOpen ? 'none' : 'violet'}>
               Login
             </AuthButton>
           )}

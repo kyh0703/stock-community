@@ -85,7 +85,7 @@ const LoginForm = () => {
       <Footer>
         <TinyLink to="/">아이디/비밀번호 찾기</TinyLink>
         <span>|</span>
-        <TinyLink to="/register">회원가입</TinyLink>
+        <TinyLink to="/signup">회원가입</TinyLink>
       </Footer>
     </LoginFormBlock>
   );

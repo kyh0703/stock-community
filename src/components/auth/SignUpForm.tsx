@@ -57,7 +57,7 @@ const SignUpForm: React.FC = () => {
     if (success) {
       alert(`회원가입이 성공하였습니다`);
       // TODO login 처리를 바로?
-      navigate('/login');
+      navigate('/signin');
     }
   }, [authError, success]);
 
