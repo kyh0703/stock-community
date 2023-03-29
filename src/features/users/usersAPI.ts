@@ -23,10 +23,10 @@ export const signupUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/signup', async (params, { rejectWithValue }) => {
+>('auth/signup', async (params, { rejectWithValue }) => {
   try {
     const response = await client.post<UserSignUpResponse>(
-      `/api/users/signup`,
+      `/api/auth/signup`,
       params,
     );
     return response.data;
@@ -58,10 +58,10 @@ export const signinUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/signin', async (params, { rejectWithValue }) => {
+>('auth/signin', async (params, { rejectWithValue }) => {
   try {
     const response = await client.post<UserSignInResponse>(
-      `/api/users/signin`,
+      `/api/auth/signin`,
       params,
     );
     const { accessToken, refreshToken } = response.data;
@@ -85,9 +85,9 @@ export const signoutUser = createAsyncThunk<
   {
     rejectValue: ValidationErrors;
   }
->('users/signout', async (params, { rejectWithValue }) => {
+>('auth/signout', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post(`/api/users/signout`, params);
+    const response = await client.post(`/api/auth/signout`, params);
     storage.removeItem('access_token');
     return null;
   } catch (err) {

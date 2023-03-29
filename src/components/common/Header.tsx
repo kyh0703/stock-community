@@ -10,6 +10,7 @@ import { UserInfo } from '../../features/users/usersSlice';
 import Button from './Button';
 import PlainNavLink from './PlainNavLink';
 import palette from '../../lib/styles/palette';
+import useEffect from 'react';
 
 interface HeaderProps {
   user: UserInfo;
