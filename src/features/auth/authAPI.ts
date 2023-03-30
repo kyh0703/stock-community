@@ -8,24 +8,29 @@ interface ValidationErrors {
   message: string | null | undefined;
 }
 
-export interface UserSignUpRequest {
+export interface AuthSignupRequest {
   email: string;
   username: string;
   password: string;
   passwordConfirm: string;
 }
 
-export interface UserSignUpResponse {}
+export interface AuthSignupResponse {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+}
 
 export const signupUser = createAsyncThunk<
-  UserSignUpResponse,
-  UserSignUpRequest,
+  AuthSignupResponse,
+  AuthSignupRequest,
   {
     rejectValue: ValidationErrors;
   }
 >('auth/signup', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post<UserSignUpResponse>(
+    const response = await client.post<AuthSignupResponse>(
       `/api/auth/signup`,
       params,
     );
@@ -39,28 +44,31 @@ export const signupUser = createAsyncThunk<
   }
 });
 
-export interface UserSignInRequest {
+export interface AuthSigninRequest {
   email: string;
   password: string;
 }
 
-export interface UserSignInResponse {
-  id: number;
+export interface AuthSigninResponse {
+  userId: number;
   email: string;
   username: string;
+  tokenType: string;
   accessToken: string;
-  refreshToken: number;
+  accessExpire: number;
+  refreshToken: string;
+  refreshExpire: number;
 }
 
 export const signinUser = createAsyncThunk<
-  UserSignInResponse,
-  UserSignInRequest,
+  AuthSigninResponse,
+  AuthSigninRequest,
   {
     rejectValue: ValidationErrors;
   }
 >('auth/signin', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post<UserSignInResponse>(
+    const response = await client.post<AuthSigninResponse>(
       `/api/auth/signin`,
       params,
     );
@@ -87,39 +95,8 @@ export const signoutUser = createAsyncThunk<
   }
 >('auth/signout', async (params, { rejectWithValue }) => {
   try {
-    const response = await client.post(`/api/auth/signout`, params);
     storage.removeItem('access_token');
     return null;
-  } catch (err) {
-    let error: AxiosError<ValidationErrors> = err as any;
-    if (!error.response) {
-      throw err;
-    }
-    return rejectWithValue(error.response.data);
-  }
-});
-
-export interface UserProfileRequest {
-  accessToken: string;
-}
-
-export interface UserProfileResponse {
-  id: number;
-  email: string;
-  username: string;
-  accessToken: string;
-}
-
-export const getUserDetails = createAsyncThunk<
-  UserProfileResponse,
-  UserProfileRequest,
-  {
-    rejectValue: ValidationErrors;
-  }
->('users/profile', async (params, { rejectWithValue }) => {
-  try {
-    const response = await client.get<UserProfileResponse>(`/api/users/check`);
-    return response.data;
   } catch (err) {
     let error: AxiosError<ValidationErrors> = err as any;
     if (!error.response) {

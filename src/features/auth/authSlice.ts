@@ -1,12 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FaMeteor } from 'react-icons/fa';
 import storage from '../../lib/storage';
-import {
-  getUserDetails,
-  signupUser,
-  signinUser,
-  signoutUser,
-} from './usersAPI';
+import { signupUser, signinUser, signoutUser } from './authAPI';
 
 const userAuth = storage.getItem('userToken')
   ? storage.getItem('userToken')
@@ -33,8 +28,8 @@ const initialState = {
   userAuth: userAuth,
 } as UsersState;
 
-const usersSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -63,8 +58,8 @@ const usersSlice = createSlice({
     builder.addCase(signinUser.fulfilled, (state, { payload: auth }) => {
       state.loading = false;
       state.userInfo = {
-        id: auth.id,
         email: auth.email,
+        id: auth.userId,
         username: auth.username,
       };
     });
@@ -93,25 +88,8 @@ const usersSlice = createSlice({
         state.error = action.error.message;
       }
     });
-    // getUserDetail
-    builder.addCase(getUserDetails.pending, (state, action) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(getUserDetails.fulfilled, (state, { payload: auth }) => {
-      state.loading = false;
-      state.userInfo = auth;
-    });
-    builder.addCase(getUserDetails.rejected, (state, action) => {
-      state.loading = false;
-      if (action.payload) {
-        state.error = action.payload.message;
-      } else {
-        state.error = action.error.message;
-      }
-    });
   },
 });
 
-export const authActions = usersSlice.actions;
-export default usersSlice.reducer;
+export const authActions = authSlice.actions;
+export default authSlice.reducer;

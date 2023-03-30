@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Header from '../../components/common/Header';
-import { signoutUser } from '../../features/users/usersAPI';
-import { UserInfo } from '../../features/users/usersSlice';
+import { signoutUser } from '../../features/auth/authAPI';
+import { UserInfo } from '../../features/auth/authSlice';
 
 const HeaderContainer = () => {
   const user = useAppSelector(({ users }) => users.userInfo) as UserInfo;

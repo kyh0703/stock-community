@@ -9,7 +9,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { useEffect } from 'react';
-import { signinUser, UserSignInRequest } from '../../features/users/usersAPI';
+import { signinUser, AuthSigninRequest } from '../../features/auth/authAPI';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -34,10 +34,10 @@ const LoginForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<UserSignInRequest>({
+  } = useForm<AuthSigninRequest>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit = (data: UserSignInRequest) => {
+  const onSubmit = (data: AuthSigninRequest) => {
     dispatch(signinUser(data));
   };
 

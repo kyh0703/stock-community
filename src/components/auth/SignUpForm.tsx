@@ -9,7 +9,7 @@ import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { useEffect } from 'react';
-import { signupUser, UserSignUpRequest } from '../../features/users/usersAPI';
+import { signupUser, AuthSignupRequest } from '../../features/auth/authAPI';
 
 const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
@@ -41,11 +41,11 @@ const SignUpForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UserSignUpRequest>({
+  } = useForm<AuthSignupRequest>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = async (data: UserSignUpRequest) => {
+  const onSubmit = async (data: AuthSignupRequest) => {
     dispatch(signupUser(data));
   };
 

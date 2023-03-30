@@ -6,7 +6,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { useAppDispatch } from '../../app/hooks';
 import { themeActions } from '../../features/theme/themeSlice';
 import storage from '../../lib/storage';
-import { UserInfo } from '../../features/users/usersSlice';
+import { UserInfo } from '../../features/auth/authSlice';
 import Button from './Button';
 import PlainNavLink from './PlainNavLink';
 import palette from '../../lib/styles/palette';
