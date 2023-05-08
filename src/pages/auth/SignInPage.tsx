@@ -1,11 +1,12 @@
-import AuthContainer from '../../container/auth/AuthContainer';
+import AuthTemplate from '../../components/auth/AuthTemplate';
+import LoginForm from '../../components/auth/SignInForm';
 
-const SignInPage = () => {
+function SignInPage() {
   return (
-    <>
-      <AuthContainer authType="signin" />
-    </>
+    <AuthTemplate>
+      <LoginForm />
+    </AuthTemplate>
   );
-};
+}
 
 export default SignInPage;

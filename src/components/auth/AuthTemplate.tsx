@@ -1,24 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AuthTemplate: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
-  children,
-}) => {
-  return (
-    <AuthTemplateBlock>
-      <AuthBox>{children}</AuthBox>
-    </AuthTemplateBlock>
-  );
-};
-
-const AuthTemplateBlock = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+const AuthTemplateContainer = styled.div`
+  height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -39,5 +25,15 @@ const AuthBox = styled.div`
   background: ${(props) => props.theme.bodyContentBackgroundColor};
   border-radius: 10px;
 `;
+
+const AuthTemplate: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  children,
+}) => {
+  return (
+    <AuthTemplateContainer>
+      <AuthBox>{children}</AuthBox>
+    </AuthTemplateContainer>
+  );
+};
 
 export default AuthTemplate;

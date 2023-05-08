@@ -1,10 +1,11 @@
-import AuthContainer from '../../container/auth/AuthContainer';
+import AuthTemplate from '../../components/auth/AuthTemplate';
+import SignUpForm from '../../components/auth/SignUpForm';
 
 const SignUpPage = () => {
   return (
-    <>
-      <AuthContainer authType="signup" />
-    </>
+    <AuthTemplate>
+      <SignUpForm />
+    </AuthTemplate>
   );
 };
 

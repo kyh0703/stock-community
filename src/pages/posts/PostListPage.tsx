@@ -1,15 +1,5 @@
-import HeaderContainer from '../../container/common/HeaderContainer';
-import PaginationContainer from '../../container/posts/PaginationContainer';
-import PostListContainer from '../../container/posts/PostListContainer';
-
 const PostListPage = () => {
-  return (
-    <>
-      <HeaderContainer />
-      <PostListContainer />
-      <PaginationContainer />
-    </>
-  );
+  return <div>postList Page예요</div>;
 };
 
 export default PostListPage;

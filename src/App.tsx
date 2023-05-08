@@ -1,7 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import PostWritePage from './pages/posts/PostWritePage';
-import PostListPage from './pages/posts/PostListPage';
-import PostViewPage from './pages/posts/PostViewPage';
 import { ThemeProvider } from 'styled-components';
 import darkTheme from './themes/dark';
 import lightTheme from './themes/light';
@@ -11,6 +8,9 @@ import { themeActions } from './features/theme/themeSlice';
 import { useEffect } from 'react';
 import SignUpPage from './pages/auth/SignUpPage';
 import SignInPage from './pages/auth/SignInPage';
+import Header from './components/common/Header';
+import HomePage from './pages/home/HomePage';
+import NotFoundPage from './pages/home/NotFoundPage';
 
 function App() {
   const { theme } = useAppSelector(({ theme }) => ({
@@ -21,6 +21,7 @@ function App() {
   useEffect(() => {
     const saveTheme = localStorage.getItem('theme');
     if (!saveTheme) return;
+
     if (saveTheme === 'dark') {
       dispatch(themeActions.enableDarkMode());
     } else {
@@ -29,21 +30,24 @@ function App() {
   }, []);
 
   return (
-    <>
-      <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <Routes>
-          <Route path="/" element={<PostListPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/write" element={<PostWritePage />} />
-          <Route path="/@:username">
-            <Route index element={<PostListPage />} />
-            <Route path=":postId" element={<PostViewPage />} />
-          </Route>
-        </Routes>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index element={<HomePage />} />
+          <Route path="signin" element={<SignInPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          {/* <Route path="post">
+            <Route path="write" element={<PostWritePage />} />
+            <Route path="/@:username">
+              <Route index element={<PostListPage />} />
+              <Route path=":postId" element={<PostViewPage />} />
+            </Route>
+          </Route> */}
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

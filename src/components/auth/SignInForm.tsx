@@ -11,7 +11,7 @@ import { FaLock, FaUser } from 'react-icons/fa';
 import { useEffect } from 'react';
 import { signinUser, AuthSigninRequest } from '../../features/auth/authAPI';
 
-const LoginForm = () => {
+const SignInForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authError, userInfo } = useAppSelector(({ users }) => ({
@@ -138,4 +138,4 @@ const TinyLink = styled(Link)`
   }
 `;
 
-export default LoginForm;
+export default SignInForm;

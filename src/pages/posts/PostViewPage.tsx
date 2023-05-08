@@ -1,14 +1,5 @@
-import React from 'react';
-import HeaderContainer from '../../container/common/HeaderContainer';
-import PostViewContainer from '../../container/posts/PostViewContainer';
-
 const PostViewPage = () => {
-  return (
-    <>
-      <HeaderContainer />
-      <PostViewContainer />
-    </>
-  );
+  return <div>PostView 페이지예요</div>;
 };
 
 export default PostViewPage;
