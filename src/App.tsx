@@ -11,6 +11,7 @@ import SignInPage from './pages/auth/SignInPage';
 import Header from './components/common/Header';
 import HomePage from './pages/home/HomePage';
 import NotFoundPage from './pages/home/NotFoundPage';
+import PostsPage from './pages/posts/PostsPage';
 
 function App() {
   const { theme } = useAppSelector(({ theme }) => ({
@@ -35,8 +36,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<HomePage />} />
+          <Route path="auth/*" />
           <Route path="signin" element={<SignInPage />} />
           <Route path="signup" element={<SignUpPage />} />
+          <Route path="posts/*" element={<PostsPage />} />
           {/* <Route path="post">
             <Route path="write" element={<PostWritePage />} />
             <Route path="/@:username">
