@@ -1,17 +1,19 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
 import darkTheme from './themes/dark';
 import lightTheme from './themes/light';
+
 import { useAppSelector, useAppDispatch } from './app/hooks';
-import GlobalStyle from './GlobalStyles';
 import { themeActions } from './features/theme/themeSlice';
-import { useEffect } from 'react';
 import SignUpPage from './pages/auth/SignUpPage';
 import SignInPage from './pages/auth/SignInPage';
-import Header from './components/common/Header';
+import Header from '@features/ui/layouts/header/header.component';
 import HomePage from './pages/home/HomePage';
 import NotFoundPage from './pages/home/NotFoundPage';
 import PostsPage from './pages/posts/PostsPage';
+import GlobalStyle from './global.styles';
 
 function App() {
   const { theme } = useAppSelector(({ theme }) => ({
@@ -32,7 +34,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <GlobalStyle />
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<HomePage />} />
