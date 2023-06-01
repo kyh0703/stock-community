@@ -67,6 +67,7 @@
   "devDependencies": {
     "@types/faker": "^6.6.9",
     "@types/quill": "^2.0.9",
+    "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "eslint": "8.2.0",
     "eslint-plugin-import": "2.25.3",
@@ -74,6 +75,7 @@
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
     "faker": "^6.6.6",
+    "redux-logger": "^3.0.6",
     "typescript-styled-plugin": "^0.18.2"
   },
   "proxy": "http://localhost:8000"

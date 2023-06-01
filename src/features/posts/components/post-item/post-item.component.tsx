@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Post } from '../../postSlice';
+import { Post } from '../../api/posts.slice';
 
 import { PostItemContainer } from './post-item.styles';
 

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 import Input from '../../../../components/common/Input';
-import { signupUser, AuthSignupRequest } from '../../authAPI';
+import { signupUser, AuthSignupRequest } from '../../api/auth.api';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 
 import {

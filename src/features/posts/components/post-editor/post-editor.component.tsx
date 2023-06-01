@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { InputPayload } from '@features/posts/postSlice';
+import { InputPayload } from '@features/posts/api/posts.slice';
 import Responsive from '@features/ui/layouts/responsive/responsive.component';
 
 interface EditorProps {

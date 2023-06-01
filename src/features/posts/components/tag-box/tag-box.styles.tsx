@@ -16,21 +16,3 @@ export const TagBoxContainer = styled.div`
 `;
 
 export const TagForm = styled.form``;
-
-interface TagListProps {
-  tags: string[];
-  onRemove: (tag: string) => void;
-}
-
-const TagList = React.memo(({ tags, onRemove }: TagListProps) => (
-  <TagListBlock>
-    {tags.map((tag) => (
-      <TagItem key={tag} tag={tag} onRemove={onRemove} />
-    ))}
-  </TagListBlock>
-));
-
-const TagListBlock = styled.div`
-  display: flex;
-  margin-top: 0.5rem;
-`;

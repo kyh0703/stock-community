@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import Input from '../../../../components/common/Input';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { useEffect } from 'react';
-import { signinUser, AuthSigninRequest } from '../../authAPI';
+import { signinUser, AuthSigninRequest } from '../../api/auth.api';
 
 import {
   SignInFormContainer,

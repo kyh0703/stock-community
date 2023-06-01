@@ -1,4 +1,4 @@
-import { Post } from '@features/posts/postSlice';
+import { Post } from '@features/posts/api/posts.slice';
 
 import Spinner from '../common/Spinner';
 import PostItem from './PostItem';
